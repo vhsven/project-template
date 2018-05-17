@@ -11,7 +11,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`skltemplate.template.TemplateEstimator` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateEstimator` ">
 
 .. only:: html
 
@@ -31,7 +31,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`skltemplate.template.TemplateTransformer` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateTransformer` ">
 
 .. only:: html
 
@@ -51,7 +51,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`skltemplate.template.TemplateClassifier` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateClassifier` ">
 
 .. only:: html
 
@@ -81,13 +81,13 @@ Introductory examples.
 
   .. container:: sphx-glr-download
 
-    :download:`Download all examples in Python source code: auto_examples_python.zip <//home/ubuntu/project-template/doc/auto_examples/auto_examples_python.zip>`
+    :download:`Download all examples in Python source code: auto_examples_python.zip <//home/ubuntu/vhsven-sklearn/doc/auto_examples/auto_examples_python.zip>`
 
 
 
   .. container:: sphx-glr-download
 
-    :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip <//home/ubuntu/project-template/doc/auto_examples/auto_examples_jupyter.zip>`
+    :download:`Download all examples in Jupyter notebooks: auto_examples_jupyter.zip <//home/ubuntu/vhsven-sklearn/doc/auto_examples/auto_examples_jupyter.zip>`
 
 
 .. only:: html

@@ -3,12 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sklearn-template's documentation!
+Welcome to vhsven-sklearn's documentation!
 ============================================
 
-This project is a reference implementation to anyone who wishes to develop
-scikit-learn compatible classes. It comes with a `template` module which
-contains a single estimator with unit tests.
+This project is an extension to scikit-learn's tree algorithms. In particular, a :class:`PrunableDecisionTreeClassifier` is added. It supports two well-known pruning methods:
+
+* Reduced Error Pruning
+* Error Based Pruning
 
 
     .. toctree::
@@ -18,8 +19,18 @@ contains a single estimator with unit tests.
        auto_examples/index
        ...
 
-See the `README <https://github.com/vighneshbirodkar/project-template/blob/master/README.md>`_
-for more information.
+See also
+--------
+DecisionTreeClassifier
+
+References
+----------
+
+.. [1] L. Breiman, J. Friedman, R. Olshen, and C. Stone, "Classification
+        and Regression Trees", Wadsworth, Belmont, CA, 1984.
+
+.. [2] L. Breiman, and A. Cutler, "Random Forests",
+        http://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm
 
 
 Indices and tables
