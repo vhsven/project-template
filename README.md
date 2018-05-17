@@ -25,13 +25,13 @@ $ python setup.py install
 ```
 or 
 ```
-pip install sklearn-template
+pip install project-template
 ```
 
 If the installation is successful, and `scikit-learn` is correctly installed,
 you should be able to execute the following in Python:
 ```python
->>> from skltemplate import TemplateEstimator
+>>> from prunabletree import TemplateEstimator
 >>> estimator = TemplateEstimator()
 >>> estimator.fit(np.arange(10).reshape(10, 1), np.arange(10))
 ```

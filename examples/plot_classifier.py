@@ -3,10 +3,10 @@
 Plotting Template Classifier
 ============================
 
-An example plot of :class:`skltemplate.template.TemplateClassifier`
+An example plot of :class:`prunabletree.template.TemplateClassifier`
 """
 import numpy as np
-from skltemplate import TemplateClassifier
+from prunabletree import TemplateClassifier
 from matplotlib import pyplot as plt
 
 
