@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>prunabletree.template &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  <title>pruneabletree.template &mdash; vhsven-sklearn 0.1.0 documentation</title>
   
 
   
@@ -132,7 +132,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>prunabletree.template</li>
+      <li>pruneabletree.template</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -147,7 +147,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for prunabletree.template</h1><div class="highlight"><pre>
+  <h1>Source code for pruneabletree.template</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This is a module to be used as a reference for building other modules</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -158,7 +158,7 @@
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">euclidean_distances</span>
 
 
-<div class="viewcode-block" id="TemplateEstimator"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateEstimator">[docs]</a><span class="k">class</span> <span class="nc">TemplateEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateEstimator"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateEstimator">[docs]</a><span class="k">class</span> <span class="nc">TemplateEstimator</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; A template estimator to be used as a reference implementation .</span>
 
 <span class="sd">    Parameters</span>
@@ -169,7 +169,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demo_param</span><span class="o">=</span><span class="s1">&#39;demo_param&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demo_param</span> <span class="o">=</span> <span class="n">demo_param</span>
 
-<div class="viewcode-block" id="TemplateEstimator.fit"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateEstimator.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateEstimator.fit"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateEstimator.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A reference implementation of a fitting function</span>
 
 <span class="sd">        Parameters</span>
@@ -189,7 +189,7 @@
         <span class="c1"># Return the estimator</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="TemplateEstimator.predict"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateEstimator.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateEstimator.predict"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateEstimator.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; A reference implementation of a predicting function.</span>
 
 <span class="sd">        Parameters</span>
@@ -206,7 +206,7 @@
         <span class="k">return</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span></div></div>
 
 
-<div class="viewcode-block" id="TemplateClassifier"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateClassifier">[docs]</a><span class="k">class</span> <span class="nc">TemplateClassifier</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateClassifier"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateClassifier">[docs]</a><span class="k">class</span> <span class="nc">TemplateClassifier</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; An example classifier which implements a 1-NN algorithm.</span>
 
 <span class="sd">    Parameters</span>
@@ -224,7 +224,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demo_param</span><span class="o">=</span><span class="s1">&#39;demo&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demo_param</span> <span class="o">=</span> <span class="n">demo_param</span>
 
-<div class="viewcode-block" id="TemplateClassifier.fit"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateClassifier.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateClassifier.fit"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateClassifier.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A reference implementation of a fitting function for a classifier.</span>
 
 <span class="sd">        Parameters</span>
@@ -249,7 +249,7 @@
         <span class="c1"># Return the classifier</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="TemplateClassifier.predict"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateClassifier.predict"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; A reference implementation of a prediction for a classifier.</span>
 
 <span class="sd">        Parameters</span>
@@ -273,7 +273,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_</span><span class="p">[</span><span class="n">closest</span><span class="p">]</span></div></div>
 
 
-<div class="viewcode-block" id="TemplateTransformer"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateTransformer">[docs]</a><span class="k">class</span> <span class="nc">TemplateTransformer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateTransformer"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateTransformer">[docs]</a><span class="k">class</span> <span class="nc">TemplateTransformer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; An example transformer that returns the element-wise square root..</span>
 
 <span class="sd">    Parameters</span>
@@ -289,7 +289,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">demo_param</span><span class="o">=</span><span class="s1">&#39;demo&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">demo_param</span> <span class="o">=</span> <span class="n">demo_param</span>
 
-<div class="viewcode-block" id="TemplateTransformer.fit"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateTransformer.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateTransformer.fit"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateTransformer.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;A reference implementation of a fitting function for a transformer.</span>
 
 <span class="sd">        Parameters</span>
@@ -312,7 +312,7 @@
         <span class="c1"># Return the transformer</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="TemplateTransformer.transform"><a class="viewcode-back" href="../../template.html#prunabletree.template.TemplateTransformer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="TemplateTransformer.transform"><a class="viewcode-back" href="../../template.html#pruneabletree.template.TemplateTransformer.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; A reference implementation of a transform function.</span>
 
 <span class="sd">        Parameters</span>

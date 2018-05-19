@@ -3,5 +3,5 @@ Template
 
 The documentation of the template module.
 
-.. automodule:: prunabletree.template
+.. automodule:: pruneabletree.template
    :members:

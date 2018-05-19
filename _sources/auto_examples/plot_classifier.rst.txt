@@ -7,7 +7,7 @@
 Plotting Template Classifier
 ============================
 
-An example plot of :class:`prunabletree.template.TemplateClassifier`
+An example plot of :class:`pruneabletree.template.TemplateClassifier`
 
 
 
@@ -22,7 +22,7 @@ An example plot of :class:`prunabletree.template.TemplateClassifier`
 .. code-block:: python
 
     import numpy as np
-    from prunabletree import TemplateClassifier
+    from pruneabletree import TemplateClassifier
     from matplotlib import pyplot as plt
 
 
@@ -56,7 +56,7 @@ An example plot of :class:`prunabletree.template.TemplateClassifier`
 
     plt.show()
 
-**Total running time of the script:** ( 0 minutes  0.037 seconds)
+**Total running time of the script:** ( 0 minutes  0.055 seconds)
 
 
 

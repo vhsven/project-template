@@ -3,10 +3,10 @@
 Plotting Template Transformer
 =============================
 
-An example plot of :class:`prunabletree.template.TemplateTransformer`
+An example plot of :class:`pruneabletree.template.TemplateTransformer`
 """
 import numpy as np
-from prunabletree import TemplateTransformer
+from pruneabletree import TemplateTransformer
 from matplotlib import pyplot as plt
 
 X = np.arange(50, dtype=np.float).reshape(-1, 1)

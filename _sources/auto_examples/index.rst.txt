@@ -11,7 +11,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateEstimator` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateEstimator` ">
 
 .. only:: html
 
@@ -31,7 +31,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateTransformer` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateTransformer` ">
 
 .. only:: html
 
@@ -51,7 +51,7 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`prunabletree.template.TemplateClassifier` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateClassifier` ">
 
 .. only:: html
 
