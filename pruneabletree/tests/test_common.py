@@ -1,5 +1,5 @@
 from sklearn.utils.estimator_checks import check_estimator
-from prunabletree import (TemplateEstimator, TemplateClassifier,
+from pruneabletree import (TemplateEstimator, TemplateClassifier,
                          TemplateTransformer)
 
 

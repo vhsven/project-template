@@ -3,10 +3,10 @@
 Plotting Template Classifier
 ============================
 
-An example plot of :class:`prunabletree.template.TemplateClassifier`
+An example plot of :class:`pruneabletree.template.TemplateClassifier`
 """
 import numpy as np
-from prunabletree import TemplateClassifier
+from pruneabletree import TemplateClassifier
 from matplotlib import pyplot as plt
 
 

@@ -1,9 +1,5 @@
 # project-template - A template for scikit-learn extensions
 
-[![Travis Status](https://travis-ci.org/scikit-learn-contrib/project-template.svg?branch=master)](https://travis-ci.org/scikit-learn-contrib/project-template)
-[![Coveralls Status](https://coveralls.io/repos/scikit-learn-contrib/project-template/badge.svg?branch=master&service=github)](https://coveralls.io/r/scikit-learn-contrib/project-template)
-[![CircleCI Status](https://circleci.com/gh/scikit-learn-contrib/project-template.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/scikit-learn-contrib/project-template/tree/master)
-
 **project-template** is a template project for 
 [scikit-learn](http://scikit-learn.org/) 
 compatible extensions.
@@ -27,11 +23,15 @@ or
 ```
 pip install project-template
 ```
+or (when using Anaconda)
+```
+conda develop /path/to/project
+```
 
 If the installation is successful, and `scikit-learn` is correctly installed,
 you should be able to execute the following in Python:
 ```python
->>> from prunabletree import TemplateEstimator
+>>> from pruneabletree import TemplateEstimator
 >>> estimator = TemplateEstimator()
 >>> estimator.fit(np.arange(10).reshape(10, 1), np.arange(10))
 ```
@@ -62,13 +62,6 @@ test to be scikit-learn compatible.
 (If there are valid reasons your estimator cannot pass `check_estimator`, please
 [raise an issue](https://github.com/scikit-learn/scikit-learn/issues/new) at
 scikit-learn so we can make `check_estimator` more flexible.)
-
-This template is particularly useful for publishing open-source versions of
-algorithms that do not meet the criteria for inclusion in the core scikit-learn
-package (see [FAQ](http://scikit-learn.org/stable/faq.html)), such as recent
-and unpopular developments in machine learning.
-However, developing using this template may also be a stepping stone to
-eventual inclusion in the core package.
 
 In any case, developers should endeavor to adhere to scikit-learn's
 [Contributor's Guide](http://scikit-learn.org/stable/developers/) which promotes
@@ -131,12 +124,12 @@ configuration for Coveralls to work. All subsequent builds after adding your
 project will generate a coverage report.
 
 ### 6. Setting up Appveyor
-[Appveyor](https://www.appveyor.com/) provides continuous intergration on the
+[Appveyor](https://www.appveyor.com/) provides continuous integration on the
 windows  platform. Currently, Appveyor can also be used to build platform
 specific Windows wheels, which can be uploaded to a Cloud Service provider and
 be made available via a Content Delivery Network (CDN). To setup Appveyor to
 build your project you need to sign up on Appveyor and authorize it. Appveyor
-configaration is governed by the `appveyor.yml` file. You have to change the
+configuration is governed by the `appveyor.yml` file. You have to change the
 following variables in it to match the requirements of your project.
 
 | Variable | Value|
@@ -180,14 +173,7 @@ on
 https://github.com/USERNAME/DOC_REPO/DOC_URL
 ```
 
-### 8. Adding Badges
-
-Follow the instructions to add a [Travis Badge](https://docs.travis-ci.com/user/status-images/), 
-[Coveralls Badge](https://coveralls.io) and 
-[CircleCI Badge](https://circleci.com/docs/status-badges) to your repository's
-`README`.
-
-### 9. Advertising your package
+### 8. Advertising your package
 
 Once your work is mature enough for the general public to use it, you should
 submit a Pull Request to modify scikit-learn's
@@ -197,7 +183,7 @@ repository or PyPI page.
 You may also wish to announce your work on the
 [`scikit-learn-general` mailing list](https://lists.sourceforge.net/lists/listinfo/scikit-learn-general).
 
-### 10. Uploading your package to PyPI
+### 9. Uploading your package to PyPI
 
 Uploading your package to [PyPI](https://pypi.python.org/pypi) allows users to
 install your package through `pip`. Python provides two repositories to upload
@@ -239,7 +225,7 @@ To install a package from the test server, execute:
 pip install -i https://testpypi.python.org/pypi <package-name>
 ```
 
-Similary, to upload your package to the PyPI server execute
+Similarly, to upload your package to the PyPI server execute
 ```
 python setup.py register -r pypi
 python setup.py sdist upload -r pypi
@@ -248,5 +234,3 @@ To install your package, execute:
 ```
 pip install <package-name>
 ```
-
-*Thank you for cleanly contributing to the scikit-learn ecosystem!*

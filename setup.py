@@ -20,7 +20,7 @@ except ImportError:
 
 setup(name='vhsven-sklearn',
       version='0.0.1',
-      description='A scikit-learn classifier to induce and prune decision trees',
+      description='A scikit-learn package to induce and prune decision trees classifiers',
       author='Sven Van Hove',
       packages=find_packages(),
       install_requires=INSTALL_REQUIRES,

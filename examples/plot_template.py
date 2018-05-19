@@ -3,10 +3,10 @@
 Plotting Template Estimator
 ===========================
 
-An example plot of :class:`prunabletree.template.TemplateEstimator`
+An example plot of :class:`pruneabletree.template.TemplateEstimator`
 """
 import numpy as np
-from prunabletree import TemplateEstimator
+from pruneabletree import TemplateEstimator
 from matplotlib import pyplot as plt
 
 X = np.arange(100).reshape(100, 1)
