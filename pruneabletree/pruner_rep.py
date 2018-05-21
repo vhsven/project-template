@@ -31,7 +31,7 @@ class ReducedErrorPruner(Pruner):
            pruning. Journal of Artificial Intelligence Research, 15:163-187, 2001.
     """
     def __init__(self, tree):
-        super().__init__(tree)
+        super(ReducedErrorPruner, self).__init__(tree)
         self.classify_result = np.zeros((self.tree.n_classes[0], self.tree.node_count))
 
     def prune(self, X_val, y_val):

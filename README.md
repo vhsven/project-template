@@ -67,13 +67,6 @@ To build the documentation locally, ensure that you have `sphinx`,
 pip install sphinx matplotlib sphinx-gallery
 ```
 
-The documentation contains a home page (`doc/index.rst`), an API
-documentation page (`doc/api.rst`) and a page documenting the `template` module 
-(`doc/template.rst`). Sphinx allows you to automatically document your modules
-and classes by using the `autodoc` directive (see `template.rst`). To change the
-aesthetics of the docs and other parameters, edit the `doc/conf.py` file. For
-more information visit the [Sphinx Documentation](http://www.sphinx-doc.org/en/stable/contents.html).
-
 You can also add code examples in the `examples` folder. All files inside
 the folder of the form `plot_*.py` will be executed and their generated
 plots will be available for viewing in the `/auto_examples` URL.

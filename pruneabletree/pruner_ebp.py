@@ -35,7 +35,7 @@ class ErrorBasedPruner(Pruner):
     .. [1] J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.
     """
     def __init__(self, tree, ebp_confidence):
-        super().__init__(tree)
+        super(ErrorBasedPruner, self).__init__(tree)
         self.ebp_confidence = ebp_confidence
 
     def prune(self):

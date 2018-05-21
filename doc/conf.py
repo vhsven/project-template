@@ -292,8 +292,8 @@ def generate_example_rst(app, what, name, obj, options, lines):
         open(examples_path, 'w').close()
 
 
-def setup(app):
-    app.connect('autodoc-process-docstring', generate_example_rst)
+# def setup(app):
+#     app.connect('autodoc-process-docstring', generate_example_rst)
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
