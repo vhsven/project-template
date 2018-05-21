@@ -25,10 +25,10 @@ class ReducedErrorPruner(Pruner):
     ----------
 
     .. [1] J. Ross Quinlan. Simplifying decision trees. International journal of
-           man-machine studies, 27(3):221–234, 1987.
+           man-machine studies, 27(3):221-234, 1987.
 
     .. [2] Tapio Elomaa and Matti Kääriäinen. An analysis of reduced error
-           pruning. Journal of Artificial Intelligence Research, 15:163–187, 2001.
+           pruning. Journal of Artificial Intelligence Research, 15:163-187, 2001.
     """
     def __init__(self, tree):
         super(ReducedErrorPruner, self).__init__(tree)
