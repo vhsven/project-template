@@ -1,5 +1,4 @@
-"""
-TODO module doc
+"""Module containing `ErrorBasedPruner` class.
 """
 
 from math import log, pi, sqrt
@@ -10,15 +9,37 @@ from .pruner import Pruner
 
 
 class ErrorBasedPruner(Pruner):
-    """
-    TODO class doc
-    """
+    """Pruner for decision trees that uses the Error Based Pruning (EBP) technique.
+
+    Note that the given tree is modified in place. 
+    To keep a copy of the original, clone it first.
     
+    Parameters
+    ----------
+    tree : Tree object
+        The underlying tree object of a DecisionTreeClassifier (e.g. `clf.tree_`).
+
+    ebp_confidence : float
+        The confidence value that determines the upper bound on the training error.
+        It must be in the (0, 0.5] interval.
+
+    See also
+    --------
+    PruneableDecisionTreeClassifier
+    ReducedErrorPruner
+
+    References
+    ----------
+
+    .. [1] J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.
+    """
     def __init__(self, tree, ebp_confidence):
         super(ErrorBasedPruner, self).__init__(tree)
         self.ebp_confidence = ebp_confidence
 
     def prune(self):
+        """Prunes the given tree.
+        """
         depths = np.zeros(self.tree.node_count)
         self._prune_ebp(0, depths, 0)
         self.tree.max_depth = depths.max() #TODO check if still works

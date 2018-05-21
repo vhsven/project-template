@@ -6,8 +6,6 @@ Plot the decision surface of a pruneable decision tree on the iris dataset
 Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` trained on pairs
 of features of the iris dataset.
 
-See :ref:`decision tree <tree>` for more information on the estimator.
-
 For each pair of iris features, the decision tree learns decision
 boundaries made of combinations of simple thresholding rules inferred from
 the training samples.

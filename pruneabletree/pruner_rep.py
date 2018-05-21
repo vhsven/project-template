@@ -1,5 +1,4 @@
-"""
-TODO module doc
+"""Module containing `ReducedErrorPruner` class.
 """
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
@@ -7,14 +6,46 @@ from sklearn.preprocessing import LabelEncoder
 from .pruner import Pruner
 
 class ReducedErrorPruner(Pruner):
-    """
-    TODO class doc
-    """
+    """Pruner for decision trees that uses the Reduced Error Pruning (REP) technique.
+
+    Note that the given tree is modified in place. 
+    To keep a copy of the original, clone it first.
     
+    Parameters
+    ----------
+    tree : Tree object
+        The underlying tree object of a DecisionTreeClassifier (e.g. `clf.tree_`).
+
+    See also
+    --------
+    PruneableDecisionTreeClassifier
+    ErrorBasedPruner
+
+    References
+    ----------
+
+    .. [1] J. Ross Quinlan. Simplifying decision trees. International journal of
+           man-machine studies, 27(3):221–234, 1987.
+
+    .. [2] Tapio Elomaa and Matti Kääriäinen. An analysis of reduced error
+           pruning. Journal of Artificial Intelligence Research, 15:163–187, 2001.
+    """
     def __init__(self, tree):
         super(ReducedErrorPruner, self).__init__(tree)
         self.classify_result = np.zeros((self.tree.n_classes[0], self.tree.node_count))
 
+    """Prunes the given tree using the given validation set.
+
+    Parameters
+    ----------
+    X_val : array-like or sparse matrix, shape = [n_samples, n_features]
+        The validation input samples. Internally, it will be converted to
+        ``dtype=np.float32`` and if a sparse matrix is provided
+        to a sparse ``csc_matrix``.
+
+    y_val : array-like, shape = [n_samples] or [n_samples, n_outputs]
+        The target values (class labels) as integers or strings.
+    """
     def prune(self, X_val, y_val):
         encoder = LabelEncoder()
         y_idxs = encoder.fit_transform(y_val) #TODO doublecheck
