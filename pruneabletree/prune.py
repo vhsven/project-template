@@ -200,7 +200,7 @@ class PruneableDecisionTreeClassifier(DecisionTreeClassifier):
     .. [2] J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.
 
     .. [3] J. Ross Quinlan. Simplifying decision trees. International journal of
-           man-machine studies, 27(3):221–234, 1987.
+           man-machine studies, 27(3):221-234, 1987.
 
     .. [4] Tapio Elomaa and Matti Kaariainen. An analysis of reduced error
            pruning. Journal of Artificial Intelligence Research, 15:163–187, 2001.

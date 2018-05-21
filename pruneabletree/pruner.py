@@ -52,7 +52,8 @@ class Pruner:
             The ID of the node in the tree
         
         y_idx : int, optional
-            The index of the class the instances should belong to. If provided, other classes are ignored.
+            The index of the class the instances should belong to. 
+            If provided, other classes are ignored.
         """
         if y_idx is None:
             return sum(self.tree.value[node_id][0])
