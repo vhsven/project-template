@@ -1,6 +1,6 @@
 # vhsven-sklearn - My scikit-learn extensions
 
-This python package contains an extension class for scikit-learn's
+This python 3.6 package contains an extension class for scikit-learn's
 decision tree algorithms. Where scikit-learn by default uses early
 stopping criteria to prevent a tree from growing too large,
 this package contains a `PruneableDecisionTreeClassifier` which
@@ -13,23 +13,30 @@ Created based on **project-template**, a template project for
 See also: http://contrib.scikit-learn.org/project-template/.
 
 ## Installation and Usage
+
 The package by itself comes with a single module and a classifier. Before
 installing the module you will need `numpy` and `scipy`.
 To install the module execute:
+
 ```shell
-$ python setup.py install
+python setup.py install
 ```
-or 
-```
+
+or
+
+```shell
 pip install project-template
 ```
+
 or (when using Anaconda)
-```
+
+```shell
 conda develop /path/to/project
 ```
 
 If the installation is successful, and `scikit-learn` is correctly installed,
 you should be able to execute the following in Python:
+
 ```python
 >>> from sklearn.datasets import load_iris
 >>> from sklearn.model_selection import cross_val_score
@@ -55,9 +62,11 @@ The online documentation can be found [here](https://vhsven.github.io/vhsven-skl
 
 To build the documentation locally, ensure that you have `sphinx`,
 `sphinx-gallery` and `matplotlib` by executing:
+
 ```shell
-$ pip install sphinx matplotlib sphinx-gallery
+pip install sphinx matplotlib sphinx-gallery
 ```
+
 The documentation contains a home page (`doc/index.rst`), an API
 documentation page (`doc/api.rst`) and a page documenting the `template` module 
 (`doc/template.rst`). Sphinx allows you to automatically document your modules
@@ -70,9 +79,10 @@ the folder of the form `plot_*.py` will be executed and their generated
 plots will be available for viewing in the `/auto_examples` URL.
 
 To build the documentation locally execute
+
 ```shell
-$ cd doc
-$ make html
+cd doc
+make html
 ```
 
 The project uses [CircleCI](https://circleci.com/) to build its documentation
@@ -107,25 +117,32 @@ repository=https://testpypi.python.org/pypi
 username=<your-pypitest-username>
 password=<your-pypitest-passowrd>
 ```
+
 Make sure that all details in `setup.py` are up to date. To upload your package
 to the Test server, execute:
-```
+
+```shell
 python setup.py register -r pypitest
 python setup.py sdist upload -r pypitest
 ```
+
 Your package should now be visible on: https://testpypi.python.org/pypi
 
 To install a package from the test server, execute:
-```
+
+```shell
 pip install -i https://testpypi.python.org/pypi <package-name>
 ```
 
 Similarly, to upload your package to the PyPI server execute
-```
+
+```shell
 python setup.py register -r pypi
 python setup.py sdist upload -r pypi
 ```
+
 To install your package, execute:
-```
+
+```shell
 pip install <package-name>
 ```

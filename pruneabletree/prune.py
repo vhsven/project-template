@@ -141,11 +141,12 @@ class PruneableDecisionTreeClassifier(DecisionTreeClassifier):
 
     rep_val_percentage : float (default=0.1)
         Determines which percentage of the training set can be used as 
-        validation set for Reduced Error Pruning. Only valid if `prune='rep'`.
+        validation set for Reduced Error Pruning. It must be in the [0.0, 1.0]
+        range. Only valid if `prune='rep'`.
 
     ebp_confidence : float (default=0.25)
         The confidence value that determines the upper bound on the training error.
-        It must be in the (0, 0.5] interval. Only valid if `prune='ebp'`.
+        It must be in the (0.0, 0.5] interval. Only valid if `prune='ebp'`.
 
     Attributes
     ----------

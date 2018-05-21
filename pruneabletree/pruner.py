@@ -5,7 +5,7 @@ import numpy as np
 INVALID_NODEID = -1
 INVALID_VALUE = -2
 
-class Pruner:
+class Pruner(object):
     """Base class for decision tree pruners.
 
     Warning: This class should not be used directly.
