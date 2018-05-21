@@ -84,7 +84,7 @@ In this example, the tree is pruned using Reduced Error Pruning (REP).
     # Create plots
     plot_surface(iris, prune_method='rep')
 
-**Total running time of the script:** ( 0 minutes  1.149 seconds)
+**Total running time of the script:** ( 0 minutes  1.487 seconds)
 
 
 
