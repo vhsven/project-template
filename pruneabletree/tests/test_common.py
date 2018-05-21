@@ -1,15 +1,6 @@
 from sklearn.utils.estimator_checks import check_estimator
-from pruneabletree import (TemplateEstimator, TemplateClassifier,
-                         TemplateTransformer)
-
-
-def test_estimator():
-    return check_estimator(TemplateEstimator)
+from pruneabletree import PruneableDecisionTreeClassifier
 
 
 def test_classifier():
-    return check_estimator(TemplateClassifier)
-
-
-def test_transformer():
-    return check_estimator(TemplateTransformer)
+    return check_estimator(PruneableDecisionTreeClassifier)

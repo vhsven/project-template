@@ -93,7 +93,7 @@ The documentation contains a home page (`doc/index.rst`), an API
 documentation page (`doc/api.rst`) and a page documenting the `template` module 
 (`doc/template.rst`). Sphinx allows you to automatically document your modules
 and classes by using the `autodoc` directive (see `template.rst`). To change the
-asthetics of the docs and other paramteres, edit the `doc/conf.py` file. For
+aesthetics of the docs and other parameters, edit the `doc/conf.py` file. For
 more information visit the [Sphinx Documentation](http://www.sphinx-doc.org/en/stable/contents.html).
 
 You can also add code examples in the `examples` folder. All files inside

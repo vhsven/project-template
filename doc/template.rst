@@ -1,7 +1,7 @@
 Template
 ========
 
-The documentation of the template module.
+The documentation of the pruneabletree module.
 
-.. automodule:: pruneabletree.template
+.. automodule:: pruneabletree.prune
    :members:

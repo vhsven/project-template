@@ -25,4 +25,4 @@ setup(name='vhsven-sklearn',
       packages=find_packages(),
       install_requires=INSTALL_REQUIRES,
       author_email='vhsven@msn.com',
-      )
+     )
