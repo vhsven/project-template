@@ -22,13 +22,22 @@ def run_all_scikit_benchmarks(n_repeats=100):
     datasets = {
         "activity": "pruneabletree/tests/datasets/activity.csv",
         "diabetes": "pruneabletree/tests/datasets/dataset_37_diabetes.csv",
-        #"soybean":  "pruneabletree/tests/datasets/dataset_42_soybean.csv",
-        #"hypothyroid":  "pruneabletree/tests/datasets/dataset_57_hypothyroid.csv",
+        #"soybean":  "pruneabletree/tests/datasets/dataset_42_soybean.csv", --> too many small classes for proper 10-fold CV
+        #"hypothyroid":  "pruneabletree/tests/datasets/dataset_57_hypothyroid.csv", --> ?
         "ionosphere": "pruneabletree/tests/datasets/dataset_59_ionosphere.csv",
         "iris": "pruneabletree/tests/datasets/dataset_61_iris.csv",
-        #"adult":  "pruneabletree/tests/datasets/dataset_183_adult.csv",
-        "wine": "pruneabletree/tests/datasets/dataset_191_wine.csv",
-        "wdbc": "pruneabletree/tests/datasets/dataset_1510_wdbc.csv"
+        #"adult":  "pruneabletree/tests/datasets/dataset_183_adult.csv", --> takes too long to train
+        "wine": "pruneabletree/tests/datasets/dataset_187_wine.csv",
+        "wdbc": "pruneabletree/tests/datasets/dataset_1510_wdbc.csv",
+        "letter": "pruneabletree/tests/datasets/dataset_6_letter.csv",
+        "lymph": "pruneabletree/tests/datasets/dataset_10_lymph.csv",
+        "credit-g": "pruneabletree/tests/datasets/dataset_31_credit-g.csv",
+        "tic-tac-toe": "pruneabletree/tests/datasets/dataset_50_tic-tac-toe.csv",
+        "heart": "pruneabletree/tests/datasets/dataset_53_heart-statlog.csv",
+        "hepatitis": "pruneabletree/tests/datasets/dataset_55_hepatitis.csv",
+        "vote": "pruneabletree/tests/datasets/dataset_56_vote.csv",
+        #"shuttle": "pruneabletree/tests/datasets/dataset_172_shuttle-landing-control.csv", --> too little data after dropping missings
+        "monks": "pruneabletree/tests/datasets/dataset_334_monks.csv"
     }
     for name, filename in datasets.items():
         print(name)
@@ -91,14 +100,23 @@ def run_scikit_benchmark(X, y, n_repeats, dataset, random_state):
     return df
 
 def _csv_to_xy(filename):
-    df = pd.read_csv(filename)
+    # Assumption: class is last column
+    df = pd.read_csv(filename, na_values=['?'])
+    print("Found {} rows".format(len(df)))
+    df.dropna(inplace=True) #TODO find more elegant way
+    print("{} rows remaining after dropping N/As".format(len(df)))
+    df.iloc[:, -1] = LabelEncoder().fit_transform(df.iloc[:, -1].values)
+    
+    # apply one hot encoding to non-numeric columns and move class to last column again
+    df2 = pd.get_dummies(df)
+    cols = list(df2.columns.values)
+    class_column_name = df.columns[-1]
+    cols.remove(class_column_name)
+    cols.append(class_column_name)
+    df2.columns = cols
 
-    for c in df.columns[df.dtypes == object]:
-        #TODO deal with missings ("?") first
-        df[c] = LabelEncoder().fit_transform(df[c])
-
-    X = df.iloc[:,:-1].values
-    y = df.iloc[:,-1].values
+    X = df2.iloc[:, :-1].values
+    y = df2.iloc[:, -1].values
     return X, y
 
 def _get_prune_method(params):
@@ -109,4 +127,4 @@ def _get_prune_method(params):
     return 'unknown'
 
 if __name__ == "__main__":
-    main(1)
+    main(1) #TODO 100
