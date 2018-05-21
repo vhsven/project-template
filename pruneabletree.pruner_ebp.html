@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Error Based Pruner &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> vhsven-sklearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">General examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vhsven-sklearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Error Based Pruner</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pruneabletree.pruner_ebp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pruneabletree.pruner_ebp">
+<span id="error-based-pruner"></span><h1>Error Based Pruner<a class="headerlink" href="#module-pruneabletree.pruner_ebp" title="Permalink to this headline">¶</a></h1>
+<p>Module containing <cite>ErrorBasedPruner</cite> class.</p>
+<dl class="class">
+<dt id="pruneabletree.pruner_ebp.ErrorBasedPruner">
+<em class="property">class </em><code class="descclassname">pruneabletree.pruner_ebp.</code><code class="descname">ErrorBasedPruner</code><span class="sig-paren">(</span><em>tree</em>, <em>ebp_confidence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#ErrorBasedPruner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.ErrorBasedPruner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pruner for decision trees that uses the Error Based Pruning (EBP) technique <a class="reference internal" href="#rd2d8b3db9252-1" id="id1">[1]</a>.</p>
+<p>Note that the given tree is modified in place. 
+To keep a copy of the original, clone it first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>tree</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Tree object</span></dt>
+<dd><p class="first last">The underlying tree object of a DecisionTreeClassifier (e.g. <cite>clf.tree_</cite>).</p>
+</dd>
+<dt><strong>ebp_confidence</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">The confidence value that determines the upper bound on the training error.
+It must be in the (0, 0.5] interval.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="pruneabletree.prune.html#pruneabletree.prune.PruneableDecisionTreeClassifier" title="pruneabletree.prune.PruneableDecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.prune.PruneableDecisionTreeClassifier</span></code></a>, <a class="reference internal" href="pruneabletree.pruner_rep.html#pruneabletree.pruner_rep.ReducedErrorPruner" title="pruneabletree.pruner_rep.ReducedErrorPruner"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.pruner_rep.ReducedErrorPruner</span></code></a></p>
+</div>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="rd2d8b3db9252-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id2">2</a>)</em> J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code>(node_id)</td>
+<td>Returns True if the given node is a leaf.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaf_prediction</span></code>(node_id)</td>
+<td>Returns the class index of that the node with the given ID would predict.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_actual_nodes</span></code>(tree)</td>
+<td>Returns the actual number of nodes in the given tree after pruning.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_instances</span></code>(node_id[,&nbsp;y_idx])</td>
+<td>Returns the number of instances in a given node.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_leaves</span></code>(tree)</td>
+<td>Returns the number of leaves.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pruneabletree.pruner_ebp.ErrorBasedPruner.prune" title="pruneabletree.pruner_ebp.ErrorBasedPruner.prune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prune</span></code></a>()</td>
+<td>Prunes the given tree.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_leaf</span></code>(node_id,&nbsp;depths)</td>
+<td>Convert the node with the given ID to a leaf, pruning away its children.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pruneabletree.pruner_ebp.ErrorBasedPruner.prune">
+<code class="descname">prune</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#ErrorBasedPruner.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.ErrorBasedPruner.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prunes the given tree.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="pruneabletree.pruner_ebp.add_errors">
+<code class="descclassname">pruneabletree.pruner_ebp.</code><code class="descname">add_errors</code><span class="sig-paren">(</span><em>num_instances</em>, <em>observed_error</em>, <em>confidence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#add_errors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.add_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes estimated extra error for given total number of instances
+and error using normal approximation to binomial distribution
+(and continuity correction).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pruneabletree.pruner_ebp.normal_inverse">
+<code class="descclassname">pruneabletree.pruner_ebp.</code><code class="descname">normal_inverse</code><span class="sig-paren">(</span><em>y0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#normal_inverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.normal_inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value, &lt;tt&gt;x&lt;/tt&gt;, for which the area under the Normal
+(Gaussian) probability density function (integrated from minus infinity to
+&lt;tt&gt;x&lt;/tt&gt;) is equal to the argument &lt;tt&gt;y&lt;/tt&gt; (assumes mean is zero,
+variance is one).
+&lt;p&gt;
+For small arguments &lt;tt&gt;0 &lt; y &lt; exp(-2)&lt;/tt&gt;, the program computes
+&lt;tt&gt;z = sqrt( -2.0 * log(y) )&lt;/tt&gt;; then the approximation is
+&lt;tt&gt;x = z - log(z)/z  - (1/z) P(1/z) / Q(1/z)&lt;/tt&gt;. There are two rational
+functions P/Q, one for &lt;tt&gt;0 &lt; y &lt; exp(-32)&lt;/tt&gt; and the other for
+&lt;tt&gt;y&lt;/tt&gt; up to &lt;tt&gt;exp(-2)&lt;/tt&gt;. For larger arguments,
+&lt;tt&gt;w = y - 0.5&lt;/tt&gt;, and &lt;tt&gt;x/sqrt(2pi) = w + w**3 R(w**2)/S(w**2))&lt;/tt&gt;.</p>
+<p>&#64;param y0 the area under the normal pdf
+&#64;return the z-value</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pruneabletree.pruner_ebp.p1evl">
+<code class="descclassname">pruneabletree.pruner_ebp.</code><code class="descname">p1evl</code><span class="sig-paren">(</span><em>x</em>, <em>coef</em>, <em>N</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#p1evl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.p1evl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the given polynomial of degree &lt;tt&gt;N&lt;/tt&gt; at &lt;tt&gt;x&lt;/tt&gt;.
+Evaluates polynomial when coefficient of N is 1.0. Otherwise same as
+&lt;tt&gt;polevl()&lt;/tt&gt;.</p>
+<p>Coefficients are stored in reverse order.</p>
+<p>The function &lt;tt&gt;p1evl()&lt;/tt&gt; assumes that &lt;tt&gt;coef[N] = 1.0&lt;/tt&gt; and is
+omitted from the array. Its calling arguments are otherwise the same as
+&lt;tt&gt;polevl()&lt;/tt&gt;.
+&lt;p&gt;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pruneabletree.pruner_ebp.polevl">
+<code class="descclassname">pruneabletree.pruner_ebp.</code><code class="descname">polevl</code><span class="sig-paren">(</span><em>x</em>, <em>coef</em>, <em>N</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_ebp.html#polevl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_ebp.polevl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the given polynomial of degree &lt;tt&gt;N&lt;/tt&gt; at &lt;tt&gt;x&lt;/tt&gt;.
+Coefficients are stored in reverse order.
+In the interest of speed, there are no checks for out of bounds arithmetic.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sven Van Hove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

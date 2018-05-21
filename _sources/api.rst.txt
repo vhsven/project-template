@@ -1,4 +1,7 @@
 API Documentation
 =================
 
-* :doc:`template`
+* :doc:`pruneabletree.prune`
+* :doc:`pruneabletree.pruner`
+* :doc:`pruneabletree.pruner_rep`
+* :doc:`pruneabletree.pruner_ebp`

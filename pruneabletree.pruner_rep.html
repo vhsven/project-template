@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reduced Error Pruner &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> vhsven-sklearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">General examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vhsven-sklearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Reduced Error Pruner</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pruneabletree.pruner_rep.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pruneabletree.pruner_rep">
+<span id="reduced-error-pruner"></span><h1>Reduced Error Pruner<a class="headerlink" href="#module-pruneabletree.pruner_rep" title="Permalink to this headline">¶</a></h1>
+<p>Module containing <cite>ReducedErrorPruner</cite> class.</p>
+<dl class="class">
+<dt id="pruneabletree.pruner_rep.ReducedErrorPruner">
+<em class="property">class </em><code class="descclassname">pruneabletree.pruner_rep.</code><code class="descname">ReducedErrorPruner</code><span class="sig-paren">(</span><em>tree</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_rep.html#ReducedErrorPruner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_rep.ReducedErrorPruner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pruner for decision trees that uses the Reduced Error Pruning (REP) technique <a class="reference internal" href="#r0788a0dfe80f-1" id="id1">[1]</a> <a class="reference internal" href="#r0788a0dfe80f-2" id="id2">[2]</a>.</p>
+<p>Note that the given tree is modified in place. 
+To keep a copy of the original, clone it first.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>tree</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Tree object</span></dt>
+<dd><p class="first last">The underlying tree object of a DecisionTreeClassifier (e.g. <cite>clf.tree_</cite>).</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="pruneabletree.prune.html#pruneabletree.prune.PruneableDecisionTreeClassifier" title="pruneabletree.prune.PruneableDecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.prune.PruneableDecisionTreeClassifier</span></code></a>, <a class="reference internal" href="pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.ErrorBasedPruner" title="pruneabletree.pruner_ebp.ErrorBasedPruner"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.pruner_ebp.ErrorBasedPruner</span></code></a></p>
+</div>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r0788a0dfe80f-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> J. Ross Quinlan. Simplifying decision trees. International journal of
+man-machine studies, 27(3):221-234, 1987.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r0788a0dfe80f-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id4">2</a>)</em> Tapio Elomaa and Matti Kaariainen. An analysis of reduced error
+pruning. Journal of Artificial Intelligence Research, 15:163-187, 2001.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_leaf</span></code>(node_id)</td>
+<td>Returns True if the given node is a leaf.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">leaf_prediction</span></code>(node_id)</td>
+<td>Returns the class index of that the node with the given ID would predict.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_actual_nodes</span></code>(tree)</td>
+<td>Returns the actual number of nodes in the given tree after pruning.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_instances</span></code>(node_id[,&nbsp;y_idx])</td>
+<td>Returns the number of instances in a given node.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">num_leaves</span></code>(tree)</td>
+<td>Returns the number of leaves.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pruneabletree.pruner_rep.ReducedErrorPruner.prune" title="pruneabletree.pruner_rep.ReducedErrorPruner.prune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prune</span></code></a>(X_val,&nbsp;y_val)</td>
+<td>Prunes the given tree using the given validation set.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_leaf</span></code>(node_id,&nbsp;depths)</td>
+<td>Convert the node with the given ID to a leaf, pruning away its children.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pruneabletree.pruner_rep.ReducedErrorPruner.prune">
+<code class="descname">prune</code><span class="sig-paren">(</span><em>X_val</em>, <em>y_val</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/pruner_rep.html#ReducedErrorPruner.prune"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.pruner_rep.ReducedErrorPruner.prune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prunes the given tree using the given validation set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>X_val</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like or sparse matrix, shape = [n_samples, n_features]</span></dt>
+<dd><p class="first last">The validation input samples. Internally, it will be converted to
+<code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> and if a sparse matrix is provided
+to a sparse <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code>.</p>
+</dd>
+<dt><strong>y_val</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples] or [n_samples, n_outputs]</span></dt>
+<dd><p class="first last">The target values (class labels) as integers or strings.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sven Van Hove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

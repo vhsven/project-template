@@ -11,13 +11,13 @@ Introductory examples.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateEstimator` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Calculate the cross validation score of a :class:`pruneabletree.prune.PruneableDecisionTreeClas...">
 
 .. only:: html
 
-    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_template_thumb.png
+    .. figure:: /auto_examples/images/thumb/sphx_glr_cross_val_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plot_template.py`
+        :ref:`sphx_glr_auto_examples_cross_val.py`
 
 .. raw:: html
 
@@ -27,17 +27,17 @@ Introductory examples.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_template
+   /auto_examples/cross_val
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateTransformer` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Fit a prunable tree on the iris dataset and compare the results of various pruning strategies. ">
 
 .. only:: html
 
-    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_transformer_thumb.png
+    .. figure:: /auto_examples/images/thumb/sphx_glr_pruned_tree_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plot_transformer.py`
+        :ref:`sphx_glr_auto_examples_pruned_tree.py`
 
 .. raw:: html
 
@@ -47,17 +47,17 @@ Introductory examples.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_transformer
+   /auto_examples/pruned_tree
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateClassifier` ">
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra...">
 
 .. only:: html
 
-    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_classifier_thumb.png
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_iris_none_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plot_classifier.py`
+        :ref:`sphx_glr_auto_examples_plot_iris_none.py`
 
 .. raw:: html
 
@@ -67,7 +67,47 @@ Introductory examples.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_classifier
+   /auto_examples/plot_iris_none
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_iris_ebp_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_iris_ebp.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_iris_ebp
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_iris_rep_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_iris_rep.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_iris_rep
 .. raw:: html
 
     <div style='clear:both'></div>

@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pruneabletree.pruner_ebp &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> vhsven-sklearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">General examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">vhsven-sklearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pruneabletree.pruner_ebp</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pruneabletree.pruner_ebp</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module containing `ErrorBasedPruner` class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">log</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.pruner</span> <span class="k">import</span> <span class="n">Pruner</span>
+
+
+<div class="viewcode-block" id="ErrorBasedPruner"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.ErrorBasedPruner">[docs]</a><span class="k">class</span> <span class="nc">ErrorBasedPruner</span><span class="p">(</span><span class="n">Pruner</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pruner for decision trees that uses the Error Based Pruning (EBP) technique [1]_.</span>
+
+<span class="sd">    Note that the given tree is modified in place. </span>
+<span class="sd">    To keep a copy of the original, clone it first.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tree : Tree object</span>
+<span class="sd">        The underlying tree object of a DecisionTreeClassifier (e.g. `clf.tree_`).</span>
+
+<span class="sd">    ebp_confidence : float</span>
+<span class="sd">        The confidence value that determines the upper bound on the training error.</span>
+<span class="sd">        It must be in the (0, 0.5] interval.</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    :class:`pruneabletree.prune.PruneableDecisionTreeClassifier`</span>
+<span class="sd">    :class:`pruneabletree.pruner_rep.ReducedErrorPruner`</span>
+<span class="sd">    </span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">ebp_confidence</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ErrorBasedPruner</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ebp_confidence</span> <span class="o">=</span> <span class="n">ebp_confidence</span>
+
+<div class="viewcode-block" id="ErrorBasedPruner.prune"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.ErrorBasedPruner.prune">[docs]</a>    <span class="k">def</span> <span class="nf">prune</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Prunes the given tree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">depths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">node_count</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prune_ebp</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">depths</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">max_depth</span> <span class="o">=</span> <span class="n">depths</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="c1">#TODO check if still works</span></div>
+
+    <span class="k">def</span> <span class="nf">_prune_ebp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">,</span> <span class="n">depths</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+        <span class="n">depths</span><span class="p">[</span><span class="n">node_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">(</span><span class="n">node_id</span><span class="p">):</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prune_ebp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">children_left</span><span class="p">[</span><span class="n">node_id</span><span class="p">],</span> <span class="n">depths</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prune_ebp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">children_right</span><span class="p">[</span><span class="n">node_id</span><span class="p">],</span> <span class="n">depths</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">error_asleaf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_leaf_error_ebp</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="n">error_assubtree</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_tree_error_ebp</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">error_asleaf</span> <span class="o">&lt;=</span> <span class="n">error_assubtree</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">:</span>
+            <span class="c1"># print(&quot;Pruning node {} because leaf error {} &lt;= subtree error {}&quot;.format(node_id, error_asleaf, error_assubtree+0.1))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">to_leaf</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">depths</span><span class="p">)</span>
+        <span class="c1"># else:</span>
+            <span class="c1"># print(&quot;Node {} does not need to be pruned&quot;.format(node_id))</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_leaf_error_ebp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">):</span>
+        <span class="n">n_instances</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_instances</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n_instances</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="n">y_idx_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">leaf_prediction</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+        <span class="n">n_correct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_instances</span><span class="p">(</span><span class="n">node_id</span><span class="p">,</span> <span class="n">y_idx_pred</span><span class="p">)</span>
+        <span class="n">n_incorrect</span> <span class="o">=</span> <span class="n">n_instances</span> <span class="o">-</span> <span class="n">n_correct</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="n">add_errors</span><span class="p">(</span><span class="n">n_instances</span><span class="p">,</span> <span class="n">n_incorrect</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ebp_confidence</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">n_incorrect</span> <span class="o">+</span> <span class="n">errors</span>
+
+    <span class="k">def</span> <span class="nf">_calculate_tree_error_ebp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_leaf</span><span class="p">(</span><span class="n">node_id</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_leaf_error_ebp</span><span class="p">(</span><span class="n">node_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_tree_error_ebp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">children_left</span><span class="p">[</span><span class="n">node_id</span><span class="p">])</span> <span class="o">+</span> \
+               <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_tree_error_ebp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tree</span><span class="o">.</span><span class="n">children_right</span><span class="p">[</span><span class="n">node_id</span><span class="p">])</span></div>
+
+
+
+<span class="c1"># Translated from weka.classifiers.trees.j48.Stats.addErrs</span>
+<div class="viewcode-block" id="add_errors"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.add_errors">[docs]</a><span class="k">def</span> <span class="nf">add_errors</span><span class="p">(</span><span class="n">num_instances</span><span class="p">,</span> <span class="n">observed_error</span><span class="p">,</span> <span class="n">confidence</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes estimated extra error for given total number of instances</span>
+<span class="sd">    and error using normal approximation to binomial distribution</span>
+<span class="sd">    (and continuity correction).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">confidence</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Confidence value too high: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">confidence</span><span class="p">))</span>
+
+    <span class="c1"># Check for extreme cases at the low end because the normal approximation won&#39;t work</span>
+    <span class="k">if</span> <span class="n">observed_error</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="c1">#   Base case (i.e. observed_error == 0) from Geigy Scientific Tables, 6th edition, page 185</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">num_instances</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="n">confidence</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">num_instances</span><span class="p">))</span>
+        <span class="c1"># Use linear interpolation between 0 and 1 like C4.5 does</span>
+        <span class="k">return</span> <span class="n">base</span> <span class="o">+</span> <span class="n">observed_error</span> <span class="o">*</span> <span class="p">(</span><span class="n">add_errors</span><span class="p">(</span><span class="n">num_instances</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">-</span> <span class="n">base</span><span class="p">)</span>
+
+    <span class="c1"># Use linear interpolation at the high end because of the continuity correction</span>
+    <span class="k">if</span> <span class="n">observed_error</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">&gt;=</span> <span class="n">num_instances</span><span class="p">:</span>
+        <span class="c1"># Make sure that we never return anything smaller than zero</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">num_instances</span> <span class="o">-</span> <span class="n">observed_error</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Get z-score corresponding to CF</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">normal_inverse</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span>
+
+    <span class="c1"># Compute upper limit of confidence interval</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="p">(</span><span class="n">observed_error</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_instances</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">num_instances</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">z</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">f</span> <span class="o">/</span> <span class="n">num_instances</span><span class="p">)</span> <span class="o">-</span> \
+            <span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">f</span> <span class="o">/</span> <span class="n">num_instances</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">z</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">num_instances</span> <span class="o">*</span> <span class="n">num_instances</span><span class="p">))))</span> <span class="o">/</span> \
+        <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">z</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_instances</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">r</span> <span class="o">*</span> <span class="n">num_instances</span><span class="p">)</span> <span class="o">-</span> <span class="n">observed_error</span></div>
+
+<span class="c1"># Translated from weka.core.Statistics.normalInverse</span>
+<div class="viewcode-block" id="normal_inverse"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.normal_inverse">[docs]</a><span class="k">def</span> <span class="nf">normal_inverse</span><span class="p">(</span><span class="n">y0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the value, &lt;tt&gt;x&lt;/tt&gt;, for which the area under the Normal</span>
+<span class="sd">    (Gaussian) probability density function (integrated from minus infinity to</span>
+<span class="sd">    &lt;tt&gt;x&lt;/tt&gt;) is equal to the argument &lt;tt&gt;y&lt;/tt&gt; (assumes mean is zero,</span>
+<span class="sd">    variance is one).</span>
+<span class="sd">    &lt;p&gt;</span>
+<span class="sd">    For small arguments &lt;tt&gt;0 &lt; y &lt; exp(-2)&lt;/tt&gt;, the program computes</span>
+<span class="sd">    &lt;tt&gt;z = sqrt( -2.0 * log(y) )&lt;/tt&gt;; then the approximation is</span>
+<span class="sd">    &lt;tt&gt;x = z - log(z)/z  - (1/z) P(1/z) / Q(1/z)&lt;/tt&gt;. There are two rational</span>
+<span class="sd">    functions P/Q, one for &lt;tt&gt;0 &lt; y &lt; exp(-32)&lt;/tt&gt; and the other for</span>
+<span class="sd">    &lt;tt&gt;y&lt;/tt&gt; up to &lt;tt&gt;exp(-2)&lt;/tt&gt;. For larger arguments,</span>
+<span class="sd">    &lt;tt&gt;w = y - 0.5&lt;/tt&gt;, and &lt;tt&gt;x/sqrt(2pi) = w + w**3 R(w**2)/S(w**2))&lt;/tt&gt;.</span>
+
+<span class="sd">    @param y0 the area under the normal pdf</span>
+<span class="sd">    @return the z-value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># approximation for 0 &lt;= |y - 0.5| &lt;= 3/8</span>
+    <span class="n">P0</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">5.99633501014107895267E1</span><span class="p">,</span>
+          <span class="mf">9.80010754185999661536E1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.66762857469070293439E1</span><span class="p">,</span>
+          <span class="mf">1.39312609387279679503E1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.23916583867381258016E0</span><span class="p">]</span>
+    <span class="n">Q0</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.95448858338141759834E0</span><span class="p">,</span> <span class="mf">4.67627912898881538453E0</span><span class="p">,</span>
+          <span class="mf">8.63602421390890590575E1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.25462687854119370527E2</span><span class="p">,</span>
+          <span class="mf">2.00260212380060660359E2</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.20372256168333339912E1</span><span class="p">,</span>
+          <span class="mf">1.59056225126211695515E1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.18331621121330003142E0</span><span class="p">]</span>
+
+    <span class="c1"># Approximation for interval z = sqrt(-2 log y ) between 2 and 8 i.e., y</span>
+    <span class="c1"># between exp(-2) = .135 and exp(-32) = 1.27e-14.</span>
+    <span class="n">P1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.05544892305962419923E0</span><span class="p">,</span>
+          <span class="mf">3.15251094599893866154E1</span><span class="p">,</span> <span class="mf">5.71628192246421288162E1</span><span class="p">,</span>
+          <span class="mf">4.40805073893200834700E1</span><span class="p">,</span> <span class="mf">1.46849561928858024014E1</span><span class="p">,</span>
+          <span class="mf">2.18663306850790267539E0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.40256079171354495875E-1</span><span class="p">,</span>
+          <span class="o">-</span><span class="mf">3.50424626827848203418E-2</span><span class="p">,</span> <span class="o">-</span><span class="mf">8.57456785154685413611E-4</span><span class="p">]</span>
+    <span class="n">Q1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.57799883256466749731E1</span><span class="p">,</span> <span class="mf">4.53907635128879210584E1</span><span class="p">,</span> <span class="mf">4.13172038254672030440E1</span><span class="p">,</span>
+          <span class="mf">1.50425385692907503408E1</span><span class="p">,</span> <span class="mf">2.50464946208309415979E0</span><span class="p">,</span>
+          <span class="o">-</span><span class="mf">1.42182922854787788574E-1</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.80806407691578277194E-2</span><span class="p">,</span>
+          <span class="o">-</span><span class="mf">9.33259480895457427372E-4</span><span class="p">]</span>
+
+    <span class="c1"># Approximation for interval z = sqrt(-2 log y ) between 8 and 64 i.e., y</span>
+    <span class="c1"># between exp(-32) = 1.27e-14 and exp(-2048) = 3.67e-890.</span>
+    <span class="n">P2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.23774891776946035970E0</span><span class="p">,</span>
+          <span class="mf">6.91522889068984211695E0</span><span class="p">,</span> <span class="mf">3.93881025292474443415E0</span><span class="p">,</span>
+          <span class="mf">1.33303460815807542389E0</span><span class="p">,</span> <span class="mf">2.01485389549179081538E-1</span><span class="p">,</span>
+          <span class="mf">1.23716634817820021358E-2</span><span class="p">,</span> <span class="mf">3.01581553508235416007E-4</span><span class="p">,</span>
+          <span class="mf">2.65806974686737550832E-6</span><span class="p">,</span> <span class="mf">6.23974539184983293730E-9</span><span class="p">]</span>
+    <span class="n">Q2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.02427039364742014255E0</span><span class="p">,</span> <span class="mf">3.67983563856160859403E0</span><span class="p">,</span>
+          <span class="mf">1.37702099489081330271E0</span><span class="p">,</span> <span class="mf">2.16236993594496635890E-1</span><span class="p">,</span>
+          <span class="mf">1.34204006088543189037E-2</span><span class="p">,</span> <span class="mf">3.28014464682127739104E-4</span><span class="p">,</span>
+          <span class="mf">2.89247864745380683936E-6</span><span class="p">,</span> <span class="mf">6.79019408009981274425E-9</span><span class="p">]</span>
+
+    <span class="n">s2pi</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="n">EXP_MIN2</span> <span class="o">=</span> <span class="mf">0.13533528323661269189</span> <span class="c1">#exp(-2)</span>
+
+    <span class="k">if</span> <span class="n">y0</span> <span class="o">&lt;=</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">y0</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+
+    <span class="n">code</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y0</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">EXP_MIN2</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">y</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="n">EXP_MIN2</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="mf">0.5</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">*</span> <span class="n">polevl</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">P0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">p1evl</span><span class="p">(</span><span class="n">y2</span><span class="p">,</span> <span class="n">Q0</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">s2pi</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span>
+
+    <span class="n">z</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">x</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">8.0</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">polevl</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">P1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">/</span> <span class="n">p1evl</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">Q1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">polevl</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">P2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="o">/</span> <span class="n">p1evl</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">Q2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span> <span class="o">-</span> <span class="n">x1</span>
+    <span class="k">if</span> <span class="n">code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+<span class="c1"># Translated from weka.core.Statistics.polevl</span>
+<div class="viewcode-block" id="polevl"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.polevl">[docs]</a><span class="k">def</span> <span class="nf">polevl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates the given polynomial of degree &lt;tt&gt;N&lt;/tt&gt; at &lt;tt&gt;x&lt;/tt&gt;.</span>
+<span class="sd">    Coefficients are stored in reverse order.</span>
+<span class="sd">    In the interest of speed, there are no checks for out of bounds arithmetic.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">coef</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ans</span></div>
+
+<span class="c1"># Translated from weka.core.Statistics.p1evl</span>
+<div class="viewcode-block" id="p1evl"><a class="viewcode-back" href="../../pruneabletree.pruner_ebp.html#pruneabletree.pruner_ebp.p1evl">[docs]</a><span class="k">def</span> <span class="nf">p1evl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">coef</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates the given polynomial of degree &lt;tt&gt;N&lt;/tt&gt; at &lt;tt&gt;x&lt;/tt&gt;.</span>
+<span class="sd">    Evaluates polynomial when coefficient of N is 1.0. Otherwise same as</span>
+<span class="sd">    &lt;tt&gt;polevl()&lt;/tt&gt;.</span>
+
+<span class="sd">    Coefficients are stored in reverse order.</span>
+
+<span class="sd">    The function &lt;tt&gt;p1evl()&lt;/tt&gt; assumes that &lt;tt&gt;coef[N] = 1.0&lt;/tt&gt; and is</span>
+<span class="sd">    omitted from the array. Its calling arguments are otherwise the same as</span>
+<span class="sd">    &lt;tt&gt;polevl()&lt;/tt&gt;.</span>
+<span class="sd">    &lt;p&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+        <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">coef</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">ans</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sven Van Hove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

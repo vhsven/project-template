@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pruneable Decision Tree Classifier &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> vhsven-sklearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auto_examples/index.html">General examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">vhsven-sklearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Pruneable Decision Tree Classifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pruneabletree.prune.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pruneabletree.prune">
+<span id="pruneable-decision-tree-classifier"></span><h1>Pruneable Decision Tree Classifier<a class="headerlink" href="#module-pruneabletree.prune" title="Permalink to this headline">¶</a></h1>
+<p>Module containing PruneableDecisionTreeClassifier class.</p>
+<dl class="class">
+<dt id="pruneabletree.prune.PruneableDecisionTreeClassifier">
+<em class="property">class </em><code class="descclassname">pruneabletree.prune.</code><code class="descname">PruneableDecisionTreeClassifier</code><span class="sig-paren">(</span><em>criterion='gini'</em>, <em>splitter='best'</em>, <em>max_depth=None</em>, <em>min_samples_split=2</em>, <em>min_samples_leaf=1</em>, <em>min_weight_fraction_leaf=0.0</em>, <em>max_features=None</em>, <em>max_leaf_nodes=None</em>, <em>random_state=None</em>, <em>min_impurity_decrease=0.0</em>, <em>min_impurity_split=None</em>, <em>class_weight=None</em>, <em>presort=False</em>, <em>prune=None</em>, <em>rep_val_percentage=0.1</em>, <em>ebp_confidence=0.25</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/prune.html#PruneableDecisionTreeClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.prune.PruneableDecisionTreeClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>A pruneable decision tree classifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>criterion</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional (default=”gini”)</span></dt>
+<dd><p class="first last">The function to measure the quality of a split. Supported criteria are
+“gini” for the Gini impurity and “entropy” for the information gain.</p>
+</dd>
+<dt><strong>splitter</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional (default=”best”)</span></dt>
+<dd><p class="first last">The strategy used to choose the split at each node. Supported
+strategies are “best” to choose the best split and “random” to choose
+the best random split.</p>
+</dd>
+<dt><strong>max_depth</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int or None, optional (default=None)</span></dt>
+<dd><p class="first last">The maximum depth of the tree. If None, then nodes are expanded until
+all leaves are pure or until all leaves contain less than
+min_samples_split samples.</p>
+</dd>
+<dt><strong>min_samples_split</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, float, optional (default=2)</span></dt>
+<dd><p class="first">The minimum number of samples required to split an internal node:</p>
+<ul class="simple">
+<li>If int, then consider <cite>min_samples_split</cite> as the minimum number.</li>
+<li>If float, then <cite>min_samples_split</cite> is a fraction and
+<cite>ceil(min_samples_split * n_samples)</cite> are the minimum
+number of samples for each split.</li>
+</ul>
+<div class="last versionchanged">
+<p><span class="versionmodified">Changed in version 0.18: </span>Added float values for fractions.</p>
+</div>
+</dd>
+<dt><strong>min_samples_leaf</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, float, optional (default=1)</span></dt>
+<dd><p class="first">The minimum number of samples required to be at a leaf node:</p>
+<ul class="simple">
+<li>If int, then consider <cite>min_samples_leaf</cite> as the minimum number.</li>
+<li>If float, then <cite>min_samples_leaf</cite> is a fraction and
+<cite>ceil(min_samples_leaf * n_samples)</cite> are the minimum
+number of samples for each node.</li>
+</ul>
+<div class="last versionchanged">
+<p><span class="versionmodified">Changed in version 0.18: </span>Added float values for fractions.</p>
+</div>
+</dd>
+<dt><strong>min_weight_fraction_leaf</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float, optional (default=0.)</span></dt>
+<dd><p class="first last">The minimum weighted fraction of the sum total of weights (of all
+the input samples) required to be at a leaf node. Samples have
+equal weight when sample_weight is not provided.</p>
+</dd>
+<dt><strong>max_features</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, float, string or None, optional (default=None)</span></dt>
+<dd><p class="first">The number of features to consider when looking for the best split:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If int, then consider <cite>max_features</cite> features at each split.</li>
+<li>If float, then <cite>max_features</cite> is a fraction and
+<cite>int(max_features * n_features)</cite> features are considered at each
+split.</li>
+<li>If “auto”, then <cite>max_features=sqrt(n_features)</cite>.</li>
+<li>If “sqrt”, then <cite>max_features=sqrt(n_features)</cite>.</li>
+<li>If “log2”, then <cite>max_features=log2(n_features)</cite>.</li>
+<li>If None, then <cite>max_features=n_features</cite>.</li>
+</ul>
+</div></blockquote>
+<p class="last">Note: the search for a split does not stop until at least one
+valid partition of the node samples is found, even if it requires to
+effectively inspect more than <code class="docutils literal notranslate"><span class="pre">max_features</span></code> features.</p>
+</dd>
+<dt><strong>random_state</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int, RandomState instance or None, optional (default=None)</span></dt>
+<dd><p class="first last">If int, random_state is the seed used by the random number generator;
+If RandomState instance, random_state is the random number generator;
+If None, the random number generator is the RandomState instance used
+by <cite>np.random</cite>.</p>
+</dd>
+<dt><strong>max_leaf_nodes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int or None, optional (default=None)</span></dt>
+<dd><p class="first last">Grow a tree with <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code> in best-first fashion.
+Best nodes are defined as relative reduction in impurity.
+If None then unlimited number of leaf nodes.</p>
+</dd>
+<dt><strong>min_impurity_decrease</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float, optional (default=0.)</span></dt>
+<dd><p class="first">A node will be split if this split induces a decrease of the impurity
+greater than or equal to this value.</p>
+<p>The weighted impurity decrease equation is the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N_t</span> <span class="o">/</span> <span class="n">N</span> <span class="o">*</span> <span class="p">(</span><span class="n">impurity</span> <span class="o">-</span> <span class="n">N_t_R</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">right_impurity</span>
+                    <span class="o">-</span> <span class="n">N_t_L</span> <span class="o">/</span> <span class="n">N_t</span> <span class="o">*</span> <span class="n">left_impurity</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the total number of samples, <code class="docutils literal notranslate"><span class="pre">N_t</span></code> is the number of
+samples at the current node, <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> is the number of samples in the
+left child, and <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> is the number of samples in the right child.</p>
+<p><code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t</span></code>, <code class="docutils literal notranslate"><span class="pre">N_t_R</span></code> and <code class="docutils literal notranslate"><span class="pre">N_t_L</span></code> all refer to the weighted sum,
+if <code class="docutils literal notranslate"><span class="pre">sample_weight</span></code> is passed.</p>
+<div class="last versionadded">
+<p><span class="versionmodified">New in version 0.19.</span></p>
+</div>
+</dd>
+<dt><strong>min_impurity_split</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float,</span></dt>
+<dd><p class="first">Threshold for early stopping in tree growth. A node will split
+if its impurity is above the threshold, otherwise it is a leaf.</p>
+<div class="last deprecated">
+<p><span class="versionmodified">Deprecated since version 0.19: </span><code class="docutils literal notranslate"><span class="pre">min_impurity_split</span></code> has been deprecated in favor of
+<code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> in 0.19 and will be removed in 0.21.
+Use <code class="docutils literal notranslate"><span class="pre">min_impurity_decrease</span></code> instead.</p>
+</div>
+</dd>
+<dt><strong>class_weight</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict, list of dicts, “balanced” or None, default=None</span></dt>
+<dd><p class="first">Weights associated with classes in the form <code class="docutils literal notranslate"><span class="pre">{class_label:</span> <span class="pre">weight}</span></code>.
+If not given, all classes are supposed to have weight one. For
+multi-output problems, a list of dicts can be provided in the same
+order as the columns of y.</p>
+<p>Note that for multioutput (including multilabel) weights should be
+defined for each class of every column in its own dict. For example,
+for four-class multilabel classification weights should be
+[{0: 1, 1: 1}, {0: 1, 1: 5}, {0: 1, 1: 1}, {0: 1, 1: 1}] instead of
+[{1:1}, {2:5}, {3:1}, {4:1}].</p>
+<p>The “balanced” mode uses the values of y to automatically adjust
+weights inversely proportional to class frequencies in the input data
+as <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">(n_classes</span> <span class="pre">*</span> <span class="pre">np.bincount(y))</span></code></p>
+<p>For multi-output, the weights of each column of y will be multiplied.</p>
+<p class="last">Note that these weights will be multiplied with sample_weight (passed
+through the fit method) if sample_weight is specified.</p>
+</dd>
+<dt><strong>presort</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional (default=False)</span></dt>
+<dd><p class="first last">Whether to presort the data to speed up the finding of best splits in
+fitting. For the default settings of a decision tree on large
+datasets, setting this to true may slow down the training process.
+When using either a smaller dataset or a restricted depth, this may
+speed up the training.</p>
+</dd>
+<dt><strong>prune</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional (default=None)</span></dt>
+<dd><p class="first last">Determines the pruning strategy. Options are None for no pruning, 
+‘rep’ for Reduced Error Pruning and ‘ebp’ for Error Based Pruning.</p>
+</dd>
+<dt><strong>rep_val_percentage</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float (default=0.1)</span></dt>
+<dd><p class="first last">Determines which percentage of the training set can be used as 
+validation set for Reduced Error Pruning. It must be in the [0.0, 1.0]
+range. Only valid if <cite>prune=’rep’</cite>.</p>
+</dd>
+<dt><strong>ebp_confidence</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float (default=0.25)</span></dt>
+<dd><p class="first last">The confidence value that determines the upper bound on the training error.
+It must be in the (0.0, 0.5] interval. Only valid if <cite>prune=’ebp’</cite>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The original <cite>DecisionTreeClassifier</cite> <a class="reference internal" href="#r78c86a01063f-1" id="id1">[1]</a> only provided some simple
+early stopping criteria to limit the size of the induced tree. This 
+<cite>PruneableDecisionTreeClassifier</cite> additionally includes two pruning 
+strategies: Reduced Error Pruning (REP) <a class="reference internal" href="#r78c86a01063f-3" id="id2">[3]</a> <a class="reference internal" href="#r78c86a01063f-4" id="id3">[4]</a> and Error Based 
+Pruning (EBP) <a class="reference internal" href="#r78c86a01063f-2" id="id4">[2]</a>. If <cite>prune=None</cite> this class acts like a regular
+<cite>DecisionTreeClassifier</cite>.</p>
+<p>The features are always randomly permuted at each split. Therefore,
+the best found split may vary, even with the same training data and
+<code class="docutils literal notranslate"><span class="pre">max_features=n_features</span></code>, if the improvement of the criterion is
+identical for several splits enumerated during the search of the best
+split. To obtain a deterministic behaviour during fitting,
+<code class="docutils literal notranslate"><span class="pre">random_state</span></code> has to be fixed.</p>
+<p class="rubric">References</p>
+<table class="docutils citation" frame="void" id="r78c86a01063f-1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id1">1</a>, <a class="fn-backref" href="#id5">2</a>)</em> L. Breiman, J. Friedman, R. Olshen, and C. Stone, “Classification
+and Regression Trees”, Wadsworth, Belmont, CA, 1984.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r78c86a01063f-2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id4">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r78c86a01063f-3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[3]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id7">2</a>)</em> J. Ross Quinlan. Simplifying decision trees. International journal of
+man-machine studies, 27(3):221-234, 1987.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="r78c86a01063f-4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id8">2</a>)</em> Tapio Elomaa and Matti Kaariainen. An analysis of reduced error
+pruning. Journal of Artificial Intelligence Research, 15:163-187, 2001.</td></tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">load_iris</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pruneabletree</span> <span class="k">import</span> <span class="n">PruneableDecisionTreeClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">clf</span> <span class="o">=</span> <span class="n">PruneableDecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prune</span><span class="o">=</span><span class="s1">&#39;rep&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">... </span>                            
+<span class="gp">...</span>
+<span class="go">array([1.         0.93333333 1.         0.93333333 0.93333333 0.86666667</span>
+<span class="go">       0.86666667 1.         1.         1.        ])</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Attributes:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>classes_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array of shape = [n_classes] or a list of such arrays</span></dt>
+<dd><p class="first last">The classes labels (single output problem),
+or a list of arrays of class labels (multi-output problem).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">feature_importances_</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">array of shape = [n_features]</span></dt>
+<dd><p class="first last">Return the feature importances.</p>
+</dd>
+<dt><strong>max_features_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int,</span></dt>
+<dd><p class="first last">The inferred value of max_features.</p>
+</dd>
+<dt><strong>n_classes_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int or list</span></dt>
+<dd><p class="first last">The number of classes (for single output problems),
+or a list containing the number of classes for each
+output (for multi-output problems).</p>
+</dd>
+<dt><strong>n_features_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">The number of features when <code class="docutils literal notranslate"><span class="pre">fit</span></code> is performed.</p>
+</dd>
+<dt><strong>n_outputs_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">The number of outputs when <code class="docutils literal notranslate"><span class="pre">fit</span></code> is performed.</p>
+</dd>
+<dt><strong>tree_</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Tree object</span></dt>
+<dd><p class="first last">The underlying Tree object.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply</span></code>(X[,&nbsp;check_input])</td>
+<td>Returns the index of the leaf that each sample is predicted as.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">decision_path</span></code>(X[,&nbsp;check_input])</td>
+<td>Return the decision path in the tree</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pruneabletree.prune.PruneableDecisionTreeClassifier.fit" title="pruneabletree.prune.PruneableDecisionTreeClassifier.fit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fit</span></code></a>(X,&nbsp;y[,&nbsp;sample_weight,&nbsp;check_input,&nbsp;…])</td>
+<td>Build a decision tree classifier from the training set (X, y).</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_params</span></code>([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict</span></code>(X[,&nbsp;check_input])</td>
+<td>Predict class or regression value for X.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_log_proba</span></code>(X)</td>
+<td>Predict class log-probabilities of the input samples X.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_proba</span></code>(X[,&nbsp;check_input])</td>
+<td>Predict class probabilities of the input samples X.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">score</span></code>(X,&nbsp;y[,&nbsp;sample_weight])</td>
+<td>Returns the mean accuracy on the given test data and labels.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_params</span></code>(**params)</td>
+<td>Set the parameters of this estimator.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pruneabletree.prune.PruneableDecisionTreeClassifier.fit">
+<code class="descname">fit</code><span class="sig-paren">(</span><em>X</em>, <em>y</em>, <em>sample_weight=None</em>, <em>check_input=True</em>, <em>X_idx_sorted=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pruneabletree/prune.html#PruneableDecisionTreeClassifier.fit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pruneabletree.prune.PruneableDecisionTreeClassifier.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a decision tree classifier from the training set (X, y).</p>
+<p>The tree is pruned afterwards using the given pruning strategy.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like or sparse matrix, shape = [n_samples, n_features]</span></dt>
+<dd><p class="first last">The training input samples. Internally, it will be converted to
+<code class="docutils literal notranslate"><span class="pre">dtype=np.float32</span></code> and if a sparse matrix is provided
+to a sparse <code class="docutils literal notranslate"><span class="pre">csc_matrix</span></code>.</p>
+</dd>
+<dt><strong>y</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples] or [n_samples, n_outputs]</span></dt>
+<dd><p class="first last">The target values (class labels) as integers or strings.</p>
+</dd>
+<dt><strong>sample_weight</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples] or None</span></dt>
+<dd><p class="first last">Sample weights. If None, then samples are equally weighted. Splits
+that would create child nodes with net zero or negative weight are
+ignored while searching for a split in each node. Splits are also
+ignored if they would result in any single class carrying a
+negative weight in either child node.</p>
+</dd>
+<dt><strong>check_input</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean, (default=True)</span></dt>
+<dd><p class="first last">Allow to bypass several input checking.
+Don’t use this parameter unless you know what you do.</p>
+</dd>
+<dt><strong>X_idx_sorted</strong> <span class="classifier-delimiter">:</span> <span class="classifier">array-like, shape = [n_samples, n_features], optional</span></dt>
+<dd><p class="first last">The indexes of the sorted training input samples. If many tree
+are grown on the same dataset, this allows the ordering to be
+cached between trees. If None, the data will be sorted here.
+Don’t use this parameter unless you know what to do.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>self</strong> <span class="classifier-delimiter">:</span> <span class="classifier">object</span></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pruneabletree.prune.PruneableDecisionTreeClassifier.n_actual_nodes">
+<code class="descname">n_actual_nodes</code><a class="headerlink" href="#pruneabletree.prune.PruneableDecisionTreeClassifier.n_actual_nodes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the actual number of nodes after pruning.</p>
+<p>This differs from the <cite>tree_.node_count</cite> property, which contains the 
+number of nodes before pruning. Updating this value would break other 
+features since the underlying data structures still have their original 
+sizes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pruneabletree.prune.PruneableDecisionTreeClassifier.n_leaves">
+<code class="descname">n_leaves</code><a class="headerlink" href="#pruneabletree.prune.PruneableDecisionTreeClassifier.n_leaves" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of leaves.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sven Van Hove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

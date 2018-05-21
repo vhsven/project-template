@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Plotting Template Estimator" href="plot_template.html" />
+    <link rel="next" title="Perform cross validation on a pruneable tree" href="cross_val.html" />
     <link rel="prev" title="API Documentation" href="../api.html" /> 
 
   
@@ -87,9 +87,11 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">General examples</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plot_template.html">Plotting Template Estimator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_transformer.html">Plotting Template Transformer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plot_classifier.html">Plotting Template Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_val.html">Perform cross validation on a pruneable tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pruned_tree.html">Fit a prunable tree on the iris dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_iris_none.html">Plot the decision surface of a pruneable tree with pruning disabled</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_iris_ebp.html">Plot the decision surface of a pruneable tree using EBP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plot_iris_rep.html">Plot the decision surface of a pruneable tree using REP</a></li>
 </ul>
 </li>
 </ul>
@@ -159,21 +161,33 @@
   <div class="section" id="general-examples">
 <span id="id1"></span><h1>General examples<a class="headerlink" href="#general-examples" title="Permalink to this headline">¶</a></h1>
 <p>Introductory examples.</p>
-<div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateEstimator` "><div class="figure" id="id2">
-<img alt="../_images/sphx_glr_plot_template_thumb.png" src="../_images/sphx_glr_plot_template_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_template.html#sphx-glr-auto-examples-plot-template-py"><span class="std std-ref">Plotting Template Estimator</span></a></span></p>
+<div class="sphx-glr-thumbcontainer" tooltip="Calculate the cross validation score of a :class:`pruneabletree.prune.PruneableDecisionTreeClas..."><div class="figure" id="id2">
+<img alt="../_images/sphx_glr_cross_val_thumb.png" src="../_images/sphx_glr_cross_val_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="cross_val.html#sphx-glr-auto-examples-cross-val-py"><span class="std std-ref">Perform cross validation on a pruneable tree</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateTransformer` "><div class="figure" id="id3">
-<img alt="../_images/sphx_glr_plot_transformer_thumb.png" src="../_images/sphx_glr_plot_transformer_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_transformer.html#sphx-glr-auto-examples-plot-transformer-py"><span class="std std-ref">Plotting Template Transformer</span></a></span></p>
+<div class="sphx-glr-thumbcontainer" tooltip="Fit a prunable tree on the iris dataset and compare the results of various pruning strategies. "><div class="figure" id="id3">
+<img alt="../_images/sphx_glr_pruned_tree_thumb.png" src="../_images/sphx_glr_pruned_tree_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="pruned_tree.html#sphx-glr-auto-examples-pruned-tree-py"><span class="std std-ref">Fit a prunable tree on the iris dataset</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="An example plot of :class:`pruneabletree.template.TemplateClassifier` "><div class="figure" id="id4">
-<img alt="../_images/sphx_glr_plot_classifier_thumb.png" src="../_images/sphx_glr_plot_classifier_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_classifier.html#sphx-glr-auto-examples-plot-classifier-py"><span class="std std-ref">Plotting Template Classifier</span></a></span></p>
+<div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra..."><div class="figure" id="id4">
+<img alt="../_images/sphx_glr_plot_iris_none_thumb.png" src="../_images/sphx_glr_plot_iris_none_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_iris_none.html#sphx-glr-auto-examples-plot-iris-none-py"><span class="std std-ref">Plot the decision surface of a pruneable tree with pruning disabled</span></a></span></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra..."><div class="figure" id="id5">
+<img alt="../_images/sphx_glr_plot_iris_ebp_thumb.png" src="../_images/sphx_glr_plot_iris_ebp_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_iris_ebp.html#sphx-glr-auto-examples-plot-iris-ebp-py"><span class="std std-ref">Plot the decision surface of a pruneable tree using EBP</span></a></span></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` tra..."><div class="figure" id="id6">
+<img alt="../_images/sphx_glr_plot_iris_rep_thumb.png" src="../_images/sphx_glr_plot_iris_rep_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_iris_rep.html#sphx-glr-auto-examples-plot-iris-rep-py"><span class="std std-ref">Plot the decision surface of a pruneable tree using REP</span></a></span></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
@@ -194,7 +208,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="plot_template.html" class="btn btn-neutral float-right" title="Plotting Template Estimator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cross_val.html" class="btn btn-neutral float-right" title="Perform cross validation on a pruneable tree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../api.html" class="btn btn-neutral" title="API Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
