@@ -1,7 +1,7 @@
 """
-=====================================================================================
-Calculate the cross validation score of a pruneable decision tree on the iris dataset
-=====================================================================================
+============================================
+Perform cross validation on a pruneable tree
+============================================
 
 Calculate the cross validation score of a
 :class:`pruneabletree.prune.PruneableDecisionTreeClassifier`

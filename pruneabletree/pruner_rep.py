@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from .pruner import Pruner
 
 class ReducedErrorPruner(Pruner):
-    """Pruner for decision trees that uses the Reduced Error Pruning (REP) technique.
+    """Pruner for decision trees that uses the Reduced Error Pruning (REP) technique [1]_ [2]_.
 
     Note that the given tree is modified in place. 
     To keep a copy of the original, clone it first.
@@ -18,8 +18,8 @@ class ReducedErrorPruner(Pruner):
 
     See also
     --------
-    PruneableDecisionTreeClassifier
-    ErrorBasedPruner
+    :class:`pruneabletree.prune.PruneableDecisionTreeClassifier`
+    :class:`pruneabletree.pruner_ebp.ErrorBasedPruner`
 
     References
     ----------
@@ -31,22 +31,22 @@ class ReducedErrorPruner(Pruner):
            pruning. Journal of Artificial Intelligence Research, 15:163-187, 2001.
     """
     def __init__(self, tree):
-        super(ReducedErrorPruner, self).__init__(tree)
+        super().__init__(tree)
         self.classify_result = np.zeros((self.tree.n_classes[0], self.tree.node_count))
 
-    """Prunes the given tree using the given validation set.
-
-    Parameters
-    ----------
-    X_val : array-like or sparse matrix, shape = [n_samples, n_features]
-        The validation input samples. Internally, it will be converted to
-        ``dtype=np.float32`` and if a sparse matrix is provided
-        to a sparse ``csc_matrix``.
-
-    y_val : array-like, shape = [n_samples] or [n_samples, n_outputs]
-        The target values (class labels) as integers or strings.
-    """
     def prune(self, X_val, y_val):
+        """Prunes the given tree using the given validation set.
+
+        Parameters
+        ----------
+        X_val : array-like or sparse matrix, shape = [n_samples, n_features]
+            The validation input samples. Internally, it will be converted to
+            ``dtype=np.float32`` and if a sparse matrix is provided
+            to a sparse ``csc_matrix``.
+
+        y_val : array-like, shape = [n_samples] or [n_samples, n_outputs]
+            The target values (class labels) as integers or strings.
+        """
         encoder = LabelEncoder()
         y_idxs = encoder.fit_transform(y_val) #TODO doublecheck
         self._classify_validation_set(X_val, y_idxs)

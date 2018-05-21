@@ -179,11 +179,12 @@ class PruneableDecisionTreeClassifier(DecisionTreeClassifier):
 
     Notes
     -----
-    The original `DecisionTreeClassifier` only provided some simple early
-    stopping criteria to limit the size of the induced tree. This 
+    The original `DecisionTreeClassifier` [1]_ only provided some simple
+    early stopping criteria to limit the size of the induced tree. This 
     `PruneableDecisionTreeClassifier` additionally includes two pruning 
-    strategies: Reduced Error Pruning (REP) and Error Based Pruning (EBP). 
-    If `prune=None` this class acts like a regular `DecisionTreeClassifier`.
+    strategies: Reduced Error Pruning (REP) [3]_ [4]_ and Error Based 
+    Pruning (EBP) [2]_. If `prune=None` this class acts like a regular
+    `DecisionTreeClassifier`.
 
     The features are always randomly permuted at each split. Therefore,
     the best found split may vary, even with the same training data and

@@ -7,5 +7,8 @@ create_env:
 activate_env:
 	source activate vhsven-sklearn
 
+build_doc:
+	cd doc && make html
+
 export_env:
 	conda env export > environment_dev.yml

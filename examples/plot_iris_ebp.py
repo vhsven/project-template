@@ -1,7 +1,7 @@
 """
-==========================================================================
-Plot the decision surface of a pruneable decision tree on the iris dataset
-==========================================================================
+=======================================================
+Plot the decision surface of a pruneable tree using EBP
+=======================================================
 
 Plot the decision surface of a :class:`pruneabletree.prune.PruneableDecisionTreeClassifier` trained on pairs
 of features of the iris dataset.
@@ -10,10 +10,7 @@ For each pair of iris features, the decision tree learns decision
 boundaries made of combinations of simple thresholding rules inferred from
 the training samples.
 
-Three scenarios are plotted:
-* The tree is not pruned
-* The tree is pruned using Reduced Error Pruning
-* The tree is pruned using Error Based Pruning
+In this example, the tree is pruned using Error Based Pruning (EBP).
 """
 print(__doc__)
 
@@ -69,6 +66,4 @@ def plot_surface(iris, prune_method):
 iris = load_iris()
 
 # Create plots
-plot_surface(iris, prune_method=None)
-plot_surface(iris, prune_method='rep')
 plot_surface(iris, prune_method='ebp')

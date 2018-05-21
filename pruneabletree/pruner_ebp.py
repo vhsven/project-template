@@ -9,7 +9,7 @@ from .pruner import Pruner
 
 
 class ErrorBasedPruner(Pruner):
-    """Pruner for decision trees that uses the Error Based Pruning (EBP) technique.
+    """Pruner for decision trees that uses the Error Based Pruning (EBP) technique [1]_.
 
     Note that the given tree is modified in place. 
     To keep a copy of the original, clone it first.
@@ -25,8 +25,9 @@ class ErrorBasedPruner(Pruner):
 
     See also
     --------
-    PruneableDecisionTreeClassifier
-    ReducedErrorPruner
+    :class:`pruneabletree.prune.PruneableDecisionTreeClassifier`
+    :class:`pruneabletree.pruner_rep.ReducedErrorPruner`
+    
 
     References
     ----------
@@ -34,7 +35,7 @@ class ErrorBasedPruner(Pruner):
     .. [1] J Ross Quinlan. C4.5: Programs for Machine Learning. Morgan Kaufmann, 1993.
     """
     def __init__(self, tree, ebp_confidence):
-        super(ErrorBasedPruner, self).__init__(tree)
+        super().__init__(tree)
         self.ebp_confidence = ebp_confidence
 
     def prune(self):
