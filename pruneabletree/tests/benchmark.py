@@ -1,10 +1,12 @@
 import numpy as np
 import pandas as pd
+from sklearn.exceptions import UndefinedMetricWarning
 from sklearn.model_selection import GridSearchCV, RepeatedStratifiedKFold
 from sklearn.preprocessing import LabelEncoder
+from sklearn.utils.testing import ignore_warnings
 
 from pruneabletree.tests.weka_tools import import_weka_results
-from pruneabletree import PruneableDecisionTreeClassifier
+from pruneabletree import PruneableDecisionTreeClassifier, CsvImporter
 
 #TODO update weka test config
 def main(n_repeats=100):
@@ -22,26 +24,22 @@ def run_all_scikit_benchmarks(n_repeats=100):
     datasets = {
         "activity": "pruneabletree/tests/datasets/activity.csv",
         "diabetes": "pruneabletree/tests/datasets/dataset_37_diabetes.csv",
-        #"soybean":  "pruneabletree/tests/datasets/dataset_42_soybean.csv", --> too many small classes for proper 10-fold CV
-        #"hypothyroid":  "pruneabletree/tests/datasets/dataset_57_hypothyroid.csv", --> ?
         "ionosphere": "pruneabletree/tests/datasets/dataset_59_ionosphere.csv",
         "iris": "pruneabletree/tests/datasets/dataset_61_iris.csv",
-        #"adult":  "pruneabletree/tests/datasets/dataset_183_adult.csv", --> takes too long to train
         "wine": "pruneabletree/tests/datasets/dataset_187_wine.csv",
         "wdbc": "pruneabletree/tests/datasets/dataset_1510_wdbc.csv",
         "letter": "pruneabletree/tests/datasets/dataset_6_letter.csv",
-        "lymph": "pruneabletree/tests/datasets/dataset_10_lymph.csv",
         "credit-g": "pruneabletree/tests/datasets/dataset_31_credit-g.csv",
         "tic-tac-toe": "pruneabletree/tests/datasets/dataset_50_tic-tac-toe.csv",
         "heart": "pruneabletree/tests/datasets/dataset_53_heart-statlog.csv",
+        "houses": "pruneabletree/tests/datasets/dataset_823_houses.csv",
         "hepatitis": "pruneabletree/tests/datasets/dataset_55_hepatitis.csv",
         "vote": "pruneabletree/tests/datasets/dataset_56_vote.csv",
-        #"shuttle": "pruneabletree/tests/datasets/dataset_172_shuttle-landing-control.csv", --> too little data after dropping missings
         "monks": "pruneabletree/tests/datasets/dataset_334_monks.csv"
     }
     for name, filename in datasets.items():
         print(name)
-        X, y = _csv_to_xy(filename)
+        X, y = CsvImporter(na_values=['?']).fit_transform_both(filename)
         df = run_scikit_benchmark(X, y, n_repeats=n_repeats, dataset=name, random_state=random_state)
         dfs.append(df)
     return pd.concat(dfs)
@@ -80,7 +78,8 @@ def run_scikit_benchmark(X, y, n_repeats, dataset, random_state):
     cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=n_repeats, random_state=random_state)
     clf = PruneableDecisionTreeClassifier(criterion="entropy", random_state=random_state)
     gsclf = GridSearchCV(clf, param_grid=param_grid, scoring=scorers, refit="f1", cv=cv, return_train_score=False)
-    gsclf.fit(X, y)
+    with ignore_warnings(category=(UndefinedMetricWarning)):
+        gsclf.fit(X, y)
     clf = gsclf.best_estimator_
     df = pd.DataFrame(gsclf.cv_results_)
     df.drop(columns=df.columns[df.columns.str.startswith("split")], inplace=True)
@@ -99,32 +98,16 @@ def run_scikit_benchmark(X, y, n_repeats, dataset, random_state):
     df["p_prune"] = [_get_prune_method(v) for v in df.index.get_level_values(1)]
     return df
 
-def _csv_to_xy(filename):
-    # Assumption: class is last column
-    df = pd.read_csv(filename, na_values=['?'])
-    print("Found {} rows".format(len(df)))
-    df.dropna(inplace=True) #TODO find more elegant way
-    print("{} rows remaining after dropping N/As".format(len(df)))
-    df.iloc[:, -1] = LabelEncoder().fit_transform(df.iloc[:, -1].values)
-    
-    # apply one hot encoding to non-numeric columns and move class to last column again
-    df2 = pd.get_dummies(df)
-    cols = list(df2.columns.values)
-    class_column_name = df.columns[-1]
-    cols.remove(class_column_name)
-    cols.append(class_column_name)
-    df2.columns = cols
-
-    X = df2.iloc[:, :-1].values
-    y = df2.iloc[:, -1].values
-    return X, y
-
 def _get_prune_method(params):
-    if "min_samples_leaf" in params: return 'min_samples_leaf'
-    if "rep_val_percentage" in params: return 'rep'
-    if "ebp_confidence" in params: return 'ebp'
-    if "'prune': None" in params: return 'none'
+    if "min_samples_leaf" in params: 
+        return 'min_samples_leaf'
+    if "rep_val_percentage" in params: 
+        return 'rep'
+    if "ebp_confidence" in params: 
+        return 'ebp'
+    if "'prune': None" in params: 
+        return 'none'
     return 'unknown'
 
 if __name__ == "__main__":
-    main(1) #TODO 100
+    main(100)
