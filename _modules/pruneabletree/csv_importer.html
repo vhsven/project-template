@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pruneabletree.csv_importer &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> vhsven-sklearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../auto_examples/index.html">General examples</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">vhsven-sklearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pruneabletree.csv_importer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pruneabletree.csv_importer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span>
+
+<div class="viewcode-block" id="CsvImporter"><a class="viewcode-back" href="../../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter">[docs]</a><span class="k">class</span> <span class="nc">CsvImporter</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Transform a CSV document to a numpy matrix of data such that the data </span>
+<span class="sd">    is ready for use by decision tree classifiers. This implies that instances </span>
+<span class="sd">    with missing values are removed and that one-hot encoding is applied to </span>
+<span class="sd">    all non-numeric columns. The class column is processed with a label encoder.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    encoding : string, &#39;utf-8&#39; by default.</span>
+<span class="sd">        The encoding used to decode the input file.</span>
+
+<span class="sd">    sep : str, default &#39;,&#39;</span>
+<span class="sd">        Delimiter to use.</span>
+
+<span class="sd">    dtype : Type name or dict of column -&gt; type, default None</span>
+<span class="sd">        Data type for data or columns. E.g. {&#39;a&#39;: np.float64, &#39;b&#39;: np.int32}. </span>
+<span class="sd">        Use str or object together with suitable na_values settings to preserve </span>
+<span class="sd">        and not interpret dtype.</span>
+
+<span class="sd">    na_values : scalar, str, list-like, or dict, default None</span>
+<span class="sd">        Additional strings to recognize as NA/NaN. If dict passed, specific </span>
+<span class="sd">        per-column NA values. The following values are always interpreted </span>
+<span class="sd">        as NaN: &#39;&#39;, &#39;#N/A&#39;, &#39;#N/A N/A&#39;, &#39;#NA&#39;, &#39;-1.#IND&#39;, &#39;-1.#QNAN&#39;, &#39;-NaN&#39;, </span>
+<span class="sd">        &#39;-nan&#39;, &#39;1.#IND&#39;, &#39;1.#QNAN&#39;, &#39;N/A&#39;, &#39;NA&#39;, &#39;NULL&#39;, &#39;NaN&#39;, &#39;n/a&#39;, &#39;nan&#39;, </span>
+<span class="sd">        &#39;null&#39;.</span>
+
+<span class="sd">    class_index : int, default -1 (i.e., the last column)</span>
+<span class="sd">        Column index of the class attribute. This column will not be present</span>
+<span class="sd">        in the transform output, but will be kept separately in the y attribute</span>
+<span class="sd">        of this transformer. Multi output scenarios are not supported.</span>
+
+<span class="sd">    missing_threshold : float (percentage), default 0.75</span>
+<span class="sd">        Indicates the least amount of data that must remain after removing</span>
+<span class="sd">        instances with missing values without raising a warning. If less remain,</span>
+<span class="sd">        a warning will be raised.</span>
+
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y : numpy array, [n_samples]</span>
+<span class="sd">        Data extracted from the CSV based on the given `class_index` and then encoded. This data</span>
+<span class="sd">        is not returned by transform, but saved here instead.</span>
+
+<span class="sd">    original_y : numpy array, [n_samples]</span>
+<span class="sd">        Same as `y`, but before encoding.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_index</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">missing_threshold</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sep</span> <span class="o">=</span> <span class="n">sep</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">na_values</span> <span class="o">=</span> <span class="n">na_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_index</span> <span class="o">=</span> <span class="n">class_index</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">missing_threshold</span> <span class="o">=</span> <span class="n">missing_threshold</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_y</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="CsvImporter.fit"><a class="viewcode-back" href="../../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract data from the given CSV file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        csv_file : string</span>
+<span class="sd">            File path to CSV file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="CsvImporter.fit_transform"><a class="viewcode-back" href="../../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter.fit_transform">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract data from the given CSV file and return it as a numpy matrix.</span>
+
+<span class="sd">        This is equivalent to fit followed by transform, but more efficiently</span>
+<span class="sd">        implemented.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        csv_file : string</span>
+<span class="sd">            File path to CSV file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : numpy matrix, [n_samples, n_features]</span>
+<span class="sd">            Extracted data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CsvImporter.transform"><a class="viewcode-back" href="../../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter.transform">[docs]</a>    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract data from the given CSV file and return it as a numpy matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        csv_file : string</span>
+<span class="sd">            File path to CSV file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : numpy matrix, [n_samples, n_features]</span>
+<span class="sd">            Extracted data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assumption: class is last column</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sep</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">na_values</span><span class="p">)</span>
+        <span class="n">n_before</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="c1">#TODO alternative: Imputation http://scikit-learn.org/dev/modules/impute.html (assumes Guassian)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">n_after</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">percent_remaining</span> <span class="o">=</span> <span class="n">n_after</span> <span class="o">/</span> <span class="n">n_before</span>
+        <span class="n">percent_lost</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">percent_remaining</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">percent_remaining</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">missing_threshold</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Lost </span><span class="si">{:.0f}% o</span><span class="s2">f instances by removing missing values: </span><span class="si">{}</span><span class="s2"> -&gt; </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">percent_lost</span><span class="p">,</span> <span class="n">n_before</span><span class="p">,</span> <span class="n">n_after</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_index</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">original_y</span><span class="p">)</span>
+        <span class="n">class_column_name</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">class_index</span><span class="p">]</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">class_column_name</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># apply one hot encoding to non-numeric columns</span>
+        <span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="c1"># like CategoricalEncoder</span>
+        <span class="k">return</span> <span class="n">df2</span><span class="o">.</span><span class="n">values</span></div>
+
+    <span class="c1"># def inverse_transform(self, X): #TODO needed?</span>
+    <span class="c1">#     raise NotImplementedError(&quot;Cannot convert back from data to CSV file.&quot;)</span>
+
+<div class="viewcode-block" id="CsvImporter.fit_transform_both"><a class="viewcode-back" href="../../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter.fit_transform_both">[docs]</a>    <span class="k">def</span> <span class="nf">fit_transform_both</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Extract data from the given CSV file and return it as a numpy matrix.</span>
+<span class="sd">        Also returns the encoded class values at the same time.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        csv_file : string</span>
+<span class="sd">            File path to CSV file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : numpy matrix, [n_samples, n_features]</span>
+<span class="sd">            Extracted data.</span>
+<span class="sd">        </span>
+<span class="sd">        y : numpy array, [n_samples]</span>
+<span class="sd">            Data extracted from the CSV based on the given `class_index` and then encoded. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Sven Van Hove.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1.0',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

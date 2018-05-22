@@ -85,7 +85,7 @@ a regular `DecisionTreeClassifier`.
     # Create plots
     plot_surface(iris, prune_method=None)
 
-**Total running time of the script:** ( 0 minutes  1.537 seconds)
+**Total running time of the script:** ( 0 minutes  2.358 seconds)
 
 
 
