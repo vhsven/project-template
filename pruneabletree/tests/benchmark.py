@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 from sklearn.exceptions import UndefinedMetricWarning
 from sklearn.model_selection import GridSearchCV, RepeatedStratifiedKFold
-from sklearn.preprocessing import LabelEncoder
 from sklearn.utils.testing import ignore_warnings
 
 from pruneabletree.tests.weka_tools import import_weka_results
@@ -18,7 +17,7 @@ def main(n_repeats=100):
     df_all.columns = [c + "_ms" if "time" in c else c for c in df_all.columns]
     df_all.to_csv("pruneabletree/tests/results/all.csv")
 
-def run_all_scikit_benchmarks(n_repeats=100):
+def run_all_scikit_benchmarks(n_repeats=10):
     random_state = 42
     dfs = []
     datasets = {
@@ -62,11 +61,11 @@ def run_scikit_benchmark(X, y, n_repeats, dataset, random_state):
         },
         {
             "prune": ['rep'],
-            "rep_val_percentage": [1/10, 1/5, 1/3, 1/2]
+            "rep_val_percentage": [0.1, 0.2, 0.5]
         },
         {
             "prune": ['ebp'],
-            "ebp_confidence": [1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1/20, 1/2]
+            "ebp_confidence": [1e-5, 1e-3, 1e-1]
         }
     ]
     scorers = {
@@ -110,4 +109,4 @@ def _get_prune_method(params):
     return 'unknown'
 
 if __name__ == "__main__":
-    main(100)
+    main(10)
