@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Perform cross validation on a pruneable tree &mdash; vhsven-sklearn 0.1.0 documentation</title>
+  <title>Read and pre-process a CSV file for usage in a decision tree &mdash; vhsven-sklearn 0.1.0 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Read and pre-process a CSV file for usage in a decision tree" href="import_csv.html" />
-    <link rel="prev" title="General examples" href="index.html" /> 
+    <link rel="next" title="Fit a prunable tree on the iris dataset" href="pruned_tree.html" />
+    <link rel="prev" title="Perform cross validation on a pruneable tree" href="cross_val.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -87,8 +87,8 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Documentation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">General examples</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Perform cross validation on a pruneable tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="import_csv.html">Read and pre-process a CSV file for usage in a decision tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cross_val.html">Perform cross validation on a pruneable tree</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Read and pre-process a CSV file for usage in a decision tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pruned_tree.html">Fit a prunable tree on the iris dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_iris_none.html">Plot the decision surface of a pruneable tree with pruning disabled</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plot_iris_ebp.html">Plot the decision surface of a pruneable tree using EBP</a></li>
@@ -142,13 +142,13 @@
         
           <li><a href="index.html">General examples</a> &raquo;</li>
         
-      <li>Perform cross validation on a pruneable tree</li>
+      <li>Read and pre-process a CSV file for usage in a decision tree</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/auto_examples/cross_val.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/auto_examples/import_csv.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -161,28 +161,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="perform-cross-validation-on-a-pruneable-tree">
-<span id="sphx-glr-auto-examples-cross-val-py"></span><h1>Perform cross validation on a pruneable tree<a class="headerlink" href="#perform-cross-validation-on-a-pruneable-tree" title="Permalink to this headline">¶</a></h1>
-<p>Calculate the cross validation score of a
-<a class="reference internal" href="../pruneabletree.prune.html#pruneabletree.prune.PruneableDecisionTreeClassifier" title="pruneabletree.prune.PruneableDecisionTreeClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.prune.PruneableDecisionTreeClassifier</span></code></a>
-using the Reduced Error Pruning strategy trained on pairs
-of features of the iris dataset.</p>
+  <div class="section" id="read-and-pre-process-a-csv-file-for-usage-in-a-decision-tree">
+<span id="sphx-glr-auto-examples-import-csv-py"></span><h1>Read and pre-process a CSV file for usage in a decision tree<a class="headerlink" href="#read-and-pre-process-a-csv-file-for-usage-in-a-decision-tree" title="Permalink to this headline">¶</a></h1>
+<p>The example uses the <a class="reference internal" href="../pruneabletree.csv_importer.html#pruneabletree.csv_importer.CsvImporter" title="pruneabletree.csv_importer.CsvImporter"><code class="xref py py-class docutils literal notranslate"><span class="pre">pruneabletree.csv_importer.CsvImporter</span></code></a> to read
+a CSV file containing a data set with missing values and categorical attributes.
+Observations with missing values will be discarded and categorical attributes
+will be encoded. This makes the data ready to be used by a decision tree
+classifier.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="kn">from</span> <span class="nn">pruneabletree</span> <span class="kn">import</span> <span class="n">PruneableDecisionTreeClassifier</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">PruneableDecisionTreeClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">prune</span><span class="o">=</span><span class="s1">&#39;rep&#39;</span><span class="p">)</span>
-<span class="n">iris</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">iris</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+<span class="kn">from</span> <span class="nn">pruneabletree</span> <span class="kn">import</span> <span class="n">CsvImporter</span><span class="p">,</span> <span class="n">PruneableDecisionTreeClassifier</span>
+
+<span class="n">importer</span> <span class="o">=</span> <span class="n">CsvImporter</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">PruneableDecisionTreeClassifier</span><span class="p">(</span><span class="n">prune</span><span class="o">=</span><span class="s1">&#39;ebp&#39;</span><span class="p">,</span> <span class="n">ebp_confidence</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="s2">&quot;pruneabletree/tests/datasets/dataset_56_vote.csv&quot;</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">importer</span><span class="o">.</span><span class="n">fit_transform_both</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+<span class="c1"># Or:</span>
+<span class="c1"># X = importer.fit_transform(filepath)</span>
+<span class="c1"># y = importer.y</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
 </pre></div>
 </div>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.000 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/cross_val.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">cross_val.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/import_csv.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">import_csv.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/cross_val.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">cross_val.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/import_csv.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">import_csv.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -195,10 +203,10 @@ of features of the iris dataset.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="import_csv.html" class="btn btn-neutral float-right" title="Read and pre-process a CSV file for usage in a decision tree" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pruned_tree.html" class="btn btn-neutral float-right" title="Fit a prunable tree on the iris dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="General examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="cross_val.html" class="btn btn-neutral" title="Perform cross validation on a pruneable tree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
