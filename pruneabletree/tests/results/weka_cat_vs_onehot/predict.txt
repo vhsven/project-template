@@ -4,10 +4,10 @@ Datasets:   14
 Resultsets: 2
 Confidence: 0.05 (two tailed)
 Sorted by:  -
-Date:       27/05/18 22:41
+Date:       07/06/18 21:39
 
 
-Dataset                   (1) trees.J | (2) tree
+Dataset                   (1) trees.J | (2) meta
 ------------------------------------------------
 activity                 (100)   0.00 |   0.00  
 wdbc                     (100)   0.00 |   0.00  
@@ -28,6 +28,6 @@ houses                   (100)   0.00 |   0.00
 
 
 Key:
-(1) trees.J48 '-O -S -C 1.0E-5 -B -M 1 -J' -217733168393644448
-(2) trees.J48 '-O -S -C 1.0E-5 -M 1 -J' -217733168393644448
+(1) trees.J48 '-O -S -C 0.001 -B -M 1 -J' -217733168393644448
+(2) meta.FilteredClassifier '-F \"supervised.attribute.NominalToBinary -A\" -S 1 -W trees.J48 -- -O -S -C 0.001 -B -M 1 -J' -4523450618538717200
 
