@@ -25,13 +25,13 @@ python setup.py install
 or
 
 ```shell
-pip install project-template
+pip install pruneabletree
 ```
 
 or (when using Anaconda)
 
 ```shell
-conda develop /path/to/project
+conda develop /path/to/vhsven-sklearn
 ```
 
 If the installation is successful, and `scikit-learn` is correctly installed,
@@ -79,63 +79,4 @@ make html
 ```
 
 The project uses [CircleCI](https://circleci.com/) to build its documentation
-from the `master` branch and host it using [Github Pages](https://pages.github.com/).
-
-## Uploading your package to PyPI
-
-Uploading your package to [PyPI](https://pypi.python.org/pypi) allows users to
-install your package through `pip`. Python provides two repositories to upload
-your packages. The [PyPI Test](https://testpypi.python.org/pypi) repository,
-which is to be used for testing packages before their release, and the
-[PyPI](https://pypi.python.org/pypi) repository, where you can make your
-releases. You need to register a username and password with both these sites.
-The username and passwords for both these sites need not be the same. To upload
-your package through the command line, you need to store your username and
-password in a file called `.pypirc` in your `$HOME` directory with the
-following format.
-
-```shell
-[distutils]
-index-servers =
-  pypi
-  pypitest
-
-[pypi]
-repository=https://pypi.python.org/pypi
-username=<your-pypi-username>
-password=<your-pypi-passowrd>
-
-[pypitest]
-repository=https://testpypi.python.org/pypi
-username=<your-pypitest-username>
-password=<your-pypitest-passowrd>
-```
-
-Make sure that all details in `setup.py` are up to date. To upload your package
-to the Test server, execute:
-
-```shell
-python setup.py register -r pypitest
-python setup.py sdist upload -r pypitest
-```
-
-Your package should now be visible on: https://testpypi.python.org/pypi
-
-To install a package from the test server, execute:
-
-```shell
-pip install -i https://testpypi.python.org/pypi <package-name>
-```
-
-Similarly, to upload your package to the PyPI server execute
-
-```shell
-python setup.py register -r pypi
-python setup.py sdist upload -r pypi
-```
-
-To install your package, execute:
-
-```shell
-pip install <package-name>
-```
+from the `master` branch and host it using [GitHub Pages](https://pages.github.com/).
