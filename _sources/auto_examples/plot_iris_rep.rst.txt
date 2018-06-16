@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_iris_rep.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_examples_plot_iris_rep.py:
 
@@ -20,7 +24,7 @@ In this example, the tree is pruned using Reduced Error Pruning (REP).
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_iris_rep_001.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
@@ -84,13 +88,17 @@ In this example, the tree is pruned using Reduced Error Pruning (REP).
     # Create plots
     plot_surface(iris, prune_method='rep')
 
-**Total running time of the script:** ( 0 minutes  1.337 seconds)
+**Total running time of the script:** ( 0 minutes  1.146 seconds)
 
+
+.. _sphx_glr_download_auto_examples_plot_iris_rep.py:
 
 
 .. only :: html
 
  .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download
